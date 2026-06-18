@@ -5,16 +5,21 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![Project Status:
-WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/lssdoc)](https://CRAN.R-project.org/package=lssdoc)
+[![R-universe](https://amaltawfik.r-universe.dev/badges/lssdoc)](https://amaltawfik.r-universe.dev/lssdoc)
 [![R-CMD-check](https://github.com/amaltawfik/lssdoc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/amaltawfik/lssdoc/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/amaltawfik/lssdoc/graph/badge.svg)](https://app.codecov.io/gh/amaltawfik/lssdoc)
-[![R-universe](https://amaltawfik.r-universe.dev/badges/lssdoc)](https://amaltawfik.r-universe.dev/lssdoc)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Project Status:
+Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![MIT
 License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
+[![DOI](https://img.shields.io/badge/DOI-10.32614%2FCRAN.package.lssdoc-blue.svg)](https://doi.org/10.32614/CRAN.package.lssdoc)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/lssdoc)](https://CRAN.R-project.org/package=lssdoc)
 <!-- badges: end -->
 
 **lssdoc** turns a LimeSurvey `.lss` export into a polished Word
@@ -31,7 +36,7 @@ Two output templates:
   table), stacked vertically. Closest to the printed questionnaire a
   respondent would see.
 
-  <img src="man/figures/template_cards.png" alt="Cards layout: one card per question stacked vertically, French and German side by side -- a free-text Other field, a single-choice-with-comment question showing its labelled answer scale and paired comment row, then a new section heading and the next single-choice question" width="100%" />
+  <img src="man/figures/template_cards.png" alt="Cards layout: one card per question stacked vertically, English and French side by side -- a free-text Other field, a single-choice-with-comment question showing its labelled answer scale and paired comment row, then a new section heading and the next single-choice question" width="100%" />
 
 - **`"table"`** – one dense codebook table covering the whole document:
   every variable is one tinted *Question* row carrying its metadata,
@@ -41,7 +46,7 @@ Two output templates:
   labelled rows of the same table so the codebook reads as a single
   artifact.
 
-  <img src="man/figures/template_table.png" alt="Codebook layout: one variable per row with French and German columns -- a yes/no single choice, two Number variables, a computed variable, a display item, a multiple-choice question expanded into one row per option with its free-text Other, and a single-choice answer scale; the column header repeats automatically at the top of each new page" width="100%" />
+  <img src="man/figures/template_table.png" alt="Codebook layout: one variable per row with English and French columns -- a yes/no single choice, two Number variables, a computed variable, a display item, a multiple-choice question expanded into one row per option with its free-text Other, and a single-choice answer scale; the column header repeats automatically at the top of each new page" width="100%" />
 
 Other things lssdoc takes care of for you:
 
@@ -77,8 +82,15 @@ Other things lssdoc takes care of for you:
 
 ## Installation
 
-From [R-universe](https://amaltawfik.r-universe.dev/lssdoc) (recommended
-– pre-built, no compiler needed):
+Install the released version from CRAN:
+
+``` r
+install.packages("lssdoc")
+```
+
+Or the latest build from
+[R-universe](https://amaltawfik.r-universe.dev/lssdoc) (pre-built, no
+compiler needed):
 
 ``` r
 install.packages(
@@ -175,7 +187,7 @@ render_questionnaire(
   ),
   description = paste0(
     "Validated as part of the SNSF project XYZ. ",
-    "Reference: https://doi.org/10.5281/zenodo.123456"
+    "Reference: https://example.org/projects/xyz"
   )
 )
 ```

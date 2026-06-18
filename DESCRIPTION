@@ -1,7 +1,7 @@
 Package: lssdoc
 Title: Render Multilingual Questionnaires from 'LimeSurvey' '.lss'
         Files
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     person("Amal", "Tawfik", , "amal.tawfik@hesav.ch", role = c("aut", "cre", "cph"), comment = c(ORCID = "0009-0006-2422-1555", ROR = "04j47fz63"))
 Description: Render 'LimeSurvey' '.lss' survey exports as multilingual
@@ -29,10 +29,10 @@ URL: https://amaltawfik.github.io/lssdoc/,
 BugReports: https://github.com/amaltawfik/lssdoc/issues
 Config/roxygen2/version: 8.0.0
 NeedsCompilation: no
-Packaged: 2026-06-07 08:21:58 UTC; at
+Packaged: 2026-06-18 20:12:16 UTC; at
 Author: Amal Tawfik [aut, cre, cph] (ORCID:
     <https://orcid.org/0009-0006-2422-1555>, ROR:
     <https://ror.org/04j47fz63>)
 Maintainer: Amal Tawfik <amal.tawfik@hesav.ch>
 Repository: CRAN
-Date/Publication: 2026-06-15 12:10:08 UTC
+Date/Publication: 2026-06-18 22:10:02 UTC

@@ -48,6 +48,33 @@ read_lss <- function(file) {
     )
   }
 
+  # Pre-validate that the file begins with an XML tag before handing it to
+  # libxml2. On some platforms (recent libxml2 builds) `read_xml()` aborts
+  # the R process with an uncatchable C++ exception when given non-XML
+  # input, so the `tryCatch()` below cannot guard against it. A well-formed
+  # `.lss` starts with an XML declaration or a root tag, i.e. its first
+  # non-whitespace byte is `<` (after an optional UTF-8/UTF-16 BOM).
+  bytes <- as.integer(readBin(file, what = "raw", n = 1024L))
+  if (length(bytes) >= 3L &&
+      bytes[1L] == 0xEF && bytes[2L] == 0xBB && bytes[3L] == 0xBF) {
+    bytes <- bytes[-(1:3)]                              # UTF-8 BOM
+  } else if (length(bytes) >= 2L &&
+             ((bytes[1L] == 0xFF && bytes[2L] == 0xFE) ||
+              (bytes[1L] == 0xFE && bytes[2L] == 0xFF))) {
+    bytes <- bytes[-(1:2)]                              # UTF-16 BOM
+  }
+  non_ws <- which(!(bytes %in% c(0x20, 0x09, 0x0D, 0x0A, 0x00)))
+  first_byte <- if (length(non_ws)) bytes[non_ws[1L]] else NA_integer_
+  if (is.na(first_byte) || first_byte != 0x3C) {        # 0x3C == "<"
+    lssdoc_abort(
+      c(
+        "{.path {file}} is not valid XML.",
+        "x" = "The file does not start with an XML tag."
+      ),
+      class = "lssdoc_invalid_xml"
+    )
+  }
+
   doc <- tryCatch(
     xml2::read_xml(file),
     error = function(e) {

@@ -16,6 +16,16 @@ test_that("read_lss errors on invalid XML", {
   expect_error(read_lss(bad), class = "lssdoc_invalid_xml")
 })
 
+test_that("read_lss rejects an empty file without crashing", {
+  # The XML pre-validation must catch a non-XML (here empty) file before it
+  # reaches libxml2, which on some platforms aborts the session rather than
+  # raising a catchable error.
+  empty <- tempfile(fileext = ".lss")
+  file.create(empty)
+  on.exit(unlink(empty), add = TRUE)
+  expect_error(read_lss(empty), class = "lssdoc_invalid_xml")
+})
+
 test_that("read_lss rejects XML that is not a survey export", {
   not_survey <- tempfile(fileext = ".lss")
   writeLines(
