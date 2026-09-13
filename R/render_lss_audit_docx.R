@@ -36,13 +36,13 @@
   description <- lss_normalize_description(description)
   for (pkg in c("officer", "flextable")) {
     if (!requireNamespace(pkg, quietly = TRUE)) {
-      lssdoc_abort(
+      lssdoc_abort(                                     # nocov start
         c(
           "Rendering a {.file .docx} document requires the {.pkg {pkg}} package.",
           "i" = "Install it with {.run install.packages(\"{pkg}\")}."
         ),
         class = "lssdoc_missing_suggest"
-      )
+      )                                                 # nocov end
     }
   }
 

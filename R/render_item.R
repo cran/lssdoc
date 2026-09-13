@@ -1211,7 +1211,7 @@ lss_value_implicit_row <- function(q, langs, theme) {
 #' `c(code, chrome_key)` pairs (the chrome key resolves to the localized
 #' label via `theme$chrome[[key]]`), or `NULL` for any other type. Shared
 #' by the cards Value rows ([lss_predefined_value_rows()]) and the table
-#' codebook so both document the same mapping.
+#' questionnaire so both document the same mapping.
 #'
 #' @keywords internal
 #' @noRd

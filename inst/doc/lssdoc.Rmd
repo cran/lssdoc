@@ -78,11 +78,11 @@ one block per item -- closest to the printed questionnaire:
 knitr::include_graphics("../man/figures/template_cards.png")
 ```
 
-The **`"table"`** template is one dense codebook covering the whole
+The **`"table"`** template is one dense table covering the whole
 document -- one row per variable, with its value codes beneath:
 
 ```{r, eval = FALSE}
-render_questionnaire(lss, "codebook.docx", template = "table")
+render_questionnaire(lss, "questionnaire.docx", template = "table")
 ```
 
 ```{r, echo = FALSE, out.width = "100%"}

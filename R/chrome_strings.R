@@ -91,7 +91,7 @@ lss_chrome_strings <- function(lang = "en") {
     item_rank_fmt         = "Rank %d",
     item_comment          = "Comment",
     item_exclusive        = "Exclusive",
-    # ---- Codebook table row labels ----
+    # ---- Table row labels ----
     item_group            = "Group",
     item_field            = "Field",
     # ---- Mandatory values ----

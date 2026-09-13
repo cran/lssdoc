@@ -24,7 +24,7 @@ audit_lss(read_lss(broken))
 knitr::include_graphics("../man/figures/template_cards.png")
 
 ## ----eval = FALSE-------------------------------------------------------------
-# render_questionnaire(lss, "codebook.docx", template = "table")
+# render_questionnaire(lss, "questionnaire.docx", template = "table")
 
 ## ----echo = FALSE, out.width = "100%"-----------------------------------------
 knitr::include_graphics("../man/figures/template_table.png")

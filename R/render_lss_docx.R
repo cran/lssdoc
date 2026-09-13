@@ -68,7 +68,7 @@
     )
   }
   base_size <- as.integer(round(base_size))
-  # "auto" is template-aware: the dense codebook ("table") is too wide to
+  # "auto" is template-aware: the dense "table" layout is too wide to
   # read in portrait, so it defaults to A4 landscape; the spacious "cards"
   # layout stacks comfortably in portrait. An explicit page_format is always
   # honored as given, for either template.
@@ -92,13 +92,13 @@
   description <- lss_normalize_description(description)
   for (pkg in c("officer", "flextable")) {
     if (!requireNamespace(pkg, quietly = TRUE)) {
-      lssdoc_abort(
+      lssdoc_abort(                                     # nocov start
         c(
           "Rendering a {.file .docx} document requires the {.pkg {pkg}} package.",
           "i" = "Install it with {.run install.packages(\"{pkg}\")}."
         ),
         class = "lssdoc_missing_suggest"
-      )
+      )                                                 # nocov end
     }
   }
 
@@ -109,7 +109,7 @@
   theme <- lss_render_theme(base_size)
   # The usable body width follows the chosen page orientation (never the
   # language count): every full-width panel (meta table, item table, audit
-  # and quota tables, the dense codebook table) lays out to this width, so
+  # and quota tables, the dense table) lays out to this width, so
   # passing page_format = "A4-landscape" / "A3" widens them automatically.
   theme$content_width_in <- lss_content_width_in(page_format)
   # Response-variable naming style: "brackets" (CSV/Excel export form, the
@@ -217,7 +217,7 @@
   )
 
   if (identical(template, "table")) {
-    # Dense codebook layout: description / welcome / group / question /
+    # Dense table layout: description / welcome / group / question /
     # value / endtext all become rows of one big flextable when their
     # respective `show_*` flag is on. Skipped rows simply drop out of
     # the row list.
@@ -288,7 +288,7 @@
       )
     }
   }
-  # End text already rendered as a row inside the codebook table
+  # End text already rendered as a row inside the table
   # when template == "table"; only the cards layout needs the
   # separate body-level paragraph here, and only when the caller
   # has not opted out via `show_endtext = FALSE`.

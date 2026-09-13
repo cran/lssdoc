@@ -2,7 +2,7 @@ citHeader("To cite lssdoc in publications, please use:")
 
 bibentry(
   bibtype = "Manual",
-  title   = "{lssdoc}: Render Multilingual Questionnaires from 'LimeSurvey' '.lss' Files",
+  title   = "{lssdoc}: Render 'LimeSurvey' '.lss' Questionnaires as Word and PDF Documents",
   author  = person("Amal", "Tawfik"),
   year    = "2026",
   note    = sprintf("R package version %s", meta$Version),

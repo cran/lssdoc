@@ -3,15 +3,23 @@
 S3method(as.data.frame,lss_audit)
 S3method(print,lss)
 S3method(print,lss_audit)
+S3method(print,lss_spec)
 export(audit_lss)
+export(lss_spec)
 export(read_lss)
 export(render_audit)
 export(render_questionnaire)
-importFrom(rlang,abort)
-importFrom(rlang,warn)
+export(write_lss)
+importFrom(lifecycle,deprecated)
+importFrom(rlang,
+  abort,
+  warn
+)
 importFrom(utils,modifyList)
-importFrom(xml2,read_xml)
-importFrom(xml2,xml_attr)
-importFrom(xml2,xml_find_all)
-importFrom(xml2,xml_find_first)
-importFrom(xml2,xml_text)
+importFrom(xml2,
+  read_xml,
+  xml_attr,
+  xml_find_all,
+  xml_find_first,
+  xml_text
+)

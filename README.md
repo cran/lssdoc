@@ -38,15 +38,15 @@ Two output templates:
 
   <img src="man/figures/template_cards.png" alt="Cards layout: one card per question stacked vertically, English and French side by side -- a free-text Other field, a single-choice-with-comment question showing its labelled answer scale and paired comment row, then a new section heading and the next single-choice question" width="100%" />
 
-- **`"table"`** – one dense codebook table covering the whole document:
-  every variable is one tinted *Question* row carrying its metadata,
-  followed by one or more white *Value* rows holding the answer codes
-  and their labels per language. Group banners (with their description,
-  when present), welcome text, survey description and end text become
-  labelled rows of the same table so the codebook reads as a single
+- **`"table"`** – one dense table covering the whole document: every
+  variable is one tinted *Question* row carrying its metadata, followed
+  by one or more white *Value* rows holding the answer codes and their
+  labels per language. Group banners (with their description, when
+  present), welcome text, survey description and end text become
+  labelled rows of the same table so the document reads as a single
   artifact.
 
-  <img src="man/figures/template_table.png" alt="Codebook layout: one variable per row with English and French columns -- a yes/no single choice, two Number variables, a computed variable, a display item, a multiple-choice question expanded into one row per option with its free-text Other, and a single-choice answer scale; the column header repeats automatically at the top of each new page" width="100%" />
+  <img src="man/figures/template_table.png" alt="Table layout: one variable per row with English and French columns -- a yes/no single choice, two Number variables, a computed variable, a display item, a multiple-choice question expanded into one row per option with its free-text Other, and a single-choice answer scale; the column header repeats automatically at the top of each new page" width="100%" />
 
 Other things lssdoc takes care of for you:
 
@@ -120,12 +120,12 @@ The package depends on **officer** and **flextable** (declared as
 
 The public API is four functions:
 
-| Function                                   | Role                                                                                   |
-|--------------------------------------------|----------------------------------------------------------------------------------------|
-| `read_lss(file)`                           | Parse a `.lss` into a structured `lss` object.                                         |
-| `audit_lss(input)`                         | Inspect a survey for anomalies; returns an `lss_audit` object with a `print()` method. |
-| `render_questionnaire(input, output, ...)` | Render the full questionnaire to a Word or PDF document.                               |
-| `render_audit(input, output, ...)`         | Render the audit findings alone to a Word or PDF document.                             |
+| Function | Role |
+|----|----|
+| `read_lss(file)` | Parse a `.lss` into a structured `lss` object. |
+| `audit_lss(input)` | Inspect a survey for anomalies; returns an `lss_audit` object with a `print()` method. |
+| `render_questionnaire(input, output, ...)` | Render the full questionnaire to a Word or PDF document. |
+| `render_audit(input, output, ...)` | Render the audit findings alone to a Word or PDF document. |
 
 `audit_lss()`, `render_questionnaire()` and `render_audit()` accept
 `input` as either a path to a `.lss` file or a pre-parsed `lss` object.
@@ -273,9 +273,10 @@ arguments accept any string to override.
 
 Run `citation("lssdoc")` for the up-to-date citation, or cite as:
 
-    Tawfik A. (2026). lssdoc: Render Multilingual Questionnaires from
-    LimeSurvey '.lss' Files. R package version 0.1.0.
-    https://github.com/amaltawfik/lssdoc
+    Tawfik A (2026). _lssdoc: Render 'LimeSurvey' '.lss' Questionnaires as
+    Word and PDF Documents_. doi:10.32614/CRAN.package.lssdoc
+    <https://doi.org/10.32614/CRAN.package.lssdoc>. R package version
+    0.2.0, <https://CRAN.R-project.org/package=lssdoc>.
 
 ## License
 

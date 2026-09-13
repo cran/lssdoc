@@ -26,7 +26,7 @@ lss_table_polish <- function(ft, theme, lang_cols, meta_header = FALSE,
   # centered above the translation paragraph below: in a wide column
   # they read as a section title rather than a left-anchored label.
   # Same convention as ESS / MOSAiCH / Eurobarometer multilingual
-  # codebooks. The optional `code` column header (short atom) stays
+  # survey documentation. The optional `code` column header (short atom) stays
   # centered too (handled below); the meta header line, when present,
   # explicitly resets to left.
   ft <- flextable::align(ft, align = "center", part = "header")

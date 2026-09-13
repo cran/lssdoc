@@ -145,9 +145,10 @@ read_lss <- function(file) {
 #' schemas that splits structural and localized content into
 #' `*_l10ns` sections. Older versions (< 400) use a flat schema and
 #' parsing silently produces an `lss` object with missing translations.
-#' Future versions (>= 800) have not been validated -- we warn but let
-#' the call proceed so users can give feedback when a newer schema
-#' lands.
+#' Versions newer than the schema the package targets
+#' (`LSS_DBVERSION`, LimeSurvey 6) have not been validated -- we warn
+#' but let the call proceed so users can give feedback when a newer
+#' schema lands.
 #'
 #' @keywords internal
 #' @noRd
@@ -174,13 +175,18 @@ lss_check_db_version <- function(db_version, file) {
       class = "lssdoc_unsupported_db_version"
     )
   }
-  if (v >= 800L) {
+  if (v > as.numeric(LSS_DBVERSION)) {
+    untested <- v >= 800L
     lssdoc_warn(
       c(
-        "{.path {file}} uses {.field DBVersion} {.val {db_version}}, which is newer than the versions lssdoc has been validated against (400-799).",
-        "i" = "Parsing will continue but please report any incorrect rendering at {.url https://github.com/amaltawfik/lssdoc/issues}."
+        "{.path {file}} was exported by a newer LimeSurvey: {.field DBVersion} {.val {db_version}} > {.val {LSS_DBVERSION}}.",
+        "i" = "lssdoc targets LimeSurvey 6 ({.field DBVersion} {LSS_DBVERSION}); parsing may be incomplete.",
+        if (untested) {
+          c("i" = "Please report any incorrect rendering at {.url https://github.com/amaltawfik/lssdoc/issues}.")
+        }
       ),
-      class = "lssdoc_untested_db_version"
+      class = c("lssdoc_newer_dbversion",
+                if (untested) "lssdoc_untested_db_version")
     )
   }
   invisible()

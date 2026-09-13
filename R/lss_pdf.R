@@ -20,6 +20,10 @@
       class = "lssdoc_bad_output"
     )
   }
+  # nocov start
+  # LibreOffice-dependent conversion: not exercised in CI/coverage
+  # environments that have no `soffice` (tested locally where it is
+  # installed). The argument validation above stays covered.
   soffice <- lss_find_soffice()
   if (is.null(soffice)) {
     lssdoc_abort(
@@ -61,12 +65,14 @@
     file.rename(produced, pdf)
   }
   invisible(pdf)
+  # nocov end
 }
 
 #' Locate the LibreOffice `soffice` executable
 #' @keywords internal
 #' @noRd
 lss_find_soffice <- function() {
+  # nocov start
   on_path <- Sys.which("soffice")
   candidates <- c(
     if (nzchar(on_path)) on_path,
@@ -78,4 +84,5 @@ lss_find_soffice <- function() {
   )
   ok <- candidates[file.exists(candidates)]
   if (length(ok) == 0L) NULL else ok[1]
+  # nocov end
 }

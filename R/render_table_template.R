@@ -1,4 +1,4 @@
-#' Render the survey content as a single dense codebook-style table
+#' Render the survey content as a single dense table
 #'
 #' Alternative to the per-item "cards" layout. Produces one big
 #' flextable where each variable is a single row, the meta fields
@@ -26,7 +26,7 @@ lss_render_table_template <- function(doc, rows, langs, theme,
   all_cols <- c(meta_cols, lang_cols)
 
   # ---- Build the data frame skeleton ------------------------------
-  # Codebook layout: every variable produces one tinted Question row
+  # Table layout: every variable produces one tinted Question row
   # carrying the meta (No, Variable, Type, Mandatory, Filter) and the
   # localized question text, followed by N white Value rows (one per
   # enumerated answer code), the rest empty. Section rows span the
@@ -118,7 +118,7 @@ lss_render_table_template <- function(doc, rows, langs, theme,
     color = theme$color_muted, italic = TRUE
   )
 
-  # The dense codebook uses ONE body size everywhere (question stems,
+  # The dense table uses ONE body size everywhere (question stems,
   # option / answer labels, welcome / end text, the value descriptors and
   # the chrome annotation rows), matching the meta and value cells -- a
   # uniform table reads as a data dictionary rather than prose. The size
@@ -161,7 +161,7 @@ lss_render_table_template <- function(doc, rows, langs, theme,
   # Group name sits at the table body size (not a heading size): the
   # bold primary colour and the saturated group banner already mark it
   # as a section divider, so a larger size would just break the even
-  # rhythm of the dense codebook rows.
+  # rhythm of the dense table rows.
   group_name_props <- officer::fp_text(
     font.family = theme$font_body, font.size = body_size,
     color = theme$color_primary, bold = TRUE
@@ -291,7 +291,7 @@ lss_render_table_template <- function(doc, rows, langs, theme,
   doc
 }
 
-#' Build the Welcome / End text row for the codebook table, when
+#' Build the Welcome / End text row for the table, when
 #' the survey has non-empty content in at least one displayed
 #' language. Returns `NULL` if all languages are empty.
 #'
@@ -315,7 +315,7 @@ lss_table_text_row <- function(lss, langs, field, kind) {
 }
 
 #' Walk the model and produce the flat list of rows that will become
-#' the codebook table -- alternating "section" markers (group
+#' the table -- alternating "section" markers (group
 #' banners) and "item" rows (one per variable).
 #'
 #' Each "item" row is normalized in this builder so the main
@@ -411,7 +411,7 @@ lss_table_template_rows_for_group <- function(g, langs, theme,
   emit_value_rows_for <- function(q) {
     # Predefined labelled scales (C/E/Y/G) store no answers in the .lss but
     # carry fixed localizable codes -- list them like a stored scale so the
-    # dense codebook documents the value domain instead of leaving it blank.
+    # dense table documents the value domain instead of leaving it blank.
     if (length(q$answers) == 0L) {
       labelled <- lss_predefined_labelled(q$type)
       if (is.null(labelled)) return(list())
@@ -485,7 +485,7 @@ lss_table_template_rows_for_group <- function(g, langs, theme,
   # One grouped block for a multiple-choice question: a parent
   # Question row (stem once, Variable = parent_*, the implicit
   # "Y/blank" coding in the Value cell) followed by one row per option
-  # carrying that option's FULL variable code -- so the dense codebook
+  # carrying that option's FULL variable code -- so the dense table
   # keeps every exported variable on its own findable row -- with the
   # option label in the language columns. Options are not numbered
   # individually (one No for the question), but each option variable is
@@ -495,7 +495,7 @@ lss_table_template_rows_for_group <- function(g, langs, theme,
     state$item_no <- state$item_no + 1L
     parent_no <- state$item_no
     # The parent row is a pure question header: stem, type, filter, but
-    # NO variable code and NO value. In this dense codebook every option
+    # NO variable code and NO value. In this dense table every option
     # row below is a real variable that carries its own name AND its own
     # value domain, so the header itself documents neither -- it is not a
     # data column. `mc_parent = TRUE` tells the renderer to leave its
@@ -589,7 +589,13 @@ lss_table_template_rows_for_group <- function(g, langs, theme,
         dual_scale <- isTRUE(info$has_scales) &&
           !is.null(q$scales) && length(q$scales) > 1L
         sq_scale <- function(s) {
+          # Defensive default: a subquestion without a scale_id maps to scale
+          # "0". covr cannot trace this closure because it is only ever invoked
+          # through vapply()/Filter(), so its body reads as uncovered even when
+          # the enclosing 2-D array path runs; excluded from coverage.
+          # nocov start
           if (is.null(s$scale_id) || is.na(s$scale_id)) "0" else as.character(s$scale_id)
+          # nocov end
         }
         two_d <- !dual_scale &&
           length(unique(vapply(q$subquestions, sq_scale, character(1)))) > 1L
@@ -704,7 +710,7 @@ lss_table_template_rows_for_group <- function(g, langs, theme,
 }
 
 #' Build the flextable paragraph for the Filter cell of a row (the
-#' codebook template). Mirrors the meta-table convention from the
+#' table template). Mirrors the meta-table convention from the
 #' cards path: human-readable form on top, raw LimeSurvey expression
 #' beneath in a smaller italic mono.
 #' @keywords internal
@@ -752,7 +758,7 @@ lss_table_filter_paragraph <- function(relevance, theme,
 #' @keywords internal
 #' @noRd
 lss_table_value_paragraph <- function(row, theme, code_props, descriptor_props) {
-  # The codebook layout devotes a dedicated Value row to every
+  # The table layout devotes a dedicated Value row to every
   # enumerated code, so the Question row's Value cell stays empty
   # for enumerated types -- only non-enumerated types receive an
   # inline descriptor in the Question row itself.
@@ -854,7 +860,7 @@ lss_table_question_paragraph <- function(row, lg, theme, show_help,
                                          body_size = theme$size_meta) {
   # One uniform size for stem, subquestion label and help; the visual
   # distinction between them is carried by style (italic, muted), not
-  # by size, so the dense codebook stays uniform.
+  # by size, so the dense table stays uniform.
   size_q  <- body_size
   size_sq <- body_size
   size_h  <- body_size
@@ -981,7 +987,7 @@ lss_table_implicit_value_text <- function(q, theme) {
 }
 
 #' Apply the visual polish (band, borders, widths, section-row
-#' merge and dark band) to the codebook flextable.
+#' merge and dark band) to the table flextable.
 #' @keywords internal
 #' @noRd
 lss_table_template_polish <- function(ft, theme, rows, n_lang) {
@@ -990,7 +996,7 @@ lss_table_template_polish <- function(ft, theme, rows, n_lang) {
   # languages so the translation paragraphs keep enough breathing
   # room per cell. With 2 languages each gets >=2.6 in at 8 pt body;
   # with 3 languages 1.75 in, with 4 languages 1.32 in -- 7 pt body
-  # is the editorial floor (matches GESIS / OECD codebooks for
+  # is the editorial floor (matches GESIS / OECD survey documentation for
   # multi-column layouts).
   body_size <- if (n_lang >= 3L) theme$size_meta - 1L else theme$size_meta
   header_size <- if (n_lang >= 3L) theme$size_lang_header - 1L else theme$size_lang_header
@@ -1008,7 +1014,7 @@ lss_table_template_polish <- function(ft, theme, rows, n_lang) {
                          part = "body")
 
   # Variable column: body font (Calibri), bold, primary. The dense
-  # codebook deliberately avoids the monospace face here -- Consolas is
+  # table deliberately avoids the monospace face here -- Consolas is
   # wide and wraps the longer parent_subqcode names, stealing width from
   # the language columns; bold + primary already signal "code". The
   # cards meta band keeps the monospace face (width is not as tight).
@@ -1069,7 +1075,7 @@ lss_table_template_polish <- function(ft, theme, rows, n_lang) {
 
   # Column widths. Tight on the meta columns to give the language
   # columns >=50% of the total width (the translation paragraphs
-  # are the primary content of the codebook). Short header labels
+  # are the primary content of the table). Short header labels
   # are allowed to wrap to two lines ("Single | choice") -- the
   # visual cost is small and the question-column gain is large.
   #   Field     0.62  - "Welcome" (7) and "Question" (8) fit on
@@ -1078,17 +1084,22 @@ lss_table_template_polish <- function(ft, theme, rows, n_lang) {
   #   No        0.30  - 3 digits in 11 pt body font ("999" max).
   #   Variable  1.30  - common `parent_subq` codes fit on a single
   #                     11 pt Consolas line; codes >14 chars wrap.
-  #   Type      0.55  - "Single choice" wraps to two lines (an
-  #                     acceptable cost on the per-variable header
-  #                     row); shorter labels ("Number", "Text")
-  #                     fit on one line.
+  #   Type      0.62  - one-word labels ("Computed", "Number",
+  #                     "Display", "Ranking") stay on one line
+  #                     ("Computed", 8 chars at 8 pt, needs ~0.50 in
+  #                     plus cell padding, which 0.55 clipped);
+  #                     multi-word labels ("Single choice") still
+  #                     wrap, an acceptable cost on the per-variable
+  #                     header row.
   #   Mandatory 0.50  - uses the abbreviated header
   #                     (`meta_mandatory_short`); the widest
   #                     localized variant ("Pflicht", 7 chars at
   #                     8 pt bold ~0.42 in) fits with thin margin.
-  #   Filter    0.65  - editorial default (show_raw_filter = FALSE)
-  #                     shows only the plain form (e.g. `Q1 = 1`);
-  #                     longer chained conditions wrap.
+  #   Filter    0.58  - editorial default (show_raw_filter = FALSE)
+  #                     shows only the plain form; "All" fits, and a
+  #                     real condition (`workstatus = 1`) wrapped
+  #                     already at 0.65, so ceding 0.07 in to Type
+  #                     costs nothing visible.
   #   Value     0.55  - 1-3 digit codes in 11 pt Consolas bold
   #                     ("1", "12", "999").
   # Total meta = 4.47; the language columns split the remaining width.
@@ -1099,15 +1110,15 @@ lss_table_template_polish <- function(ft, theme, rows, n_lang) {
   # 0.40 in floor is a hard legibility minimum (the body font already steps
   # down to 7 pt from three languages on); if it binds, the page format is
   # too narrow for that many languages and landscape is the fix.
-  meta_w <- 0.62 + 0.30 + 1.30 + 0.55 + 0.50 + 0.65 + 0.55
+  meta_w <- 0.62 + 0.30 + 1.30 + 0.62 + 0.50 + 0.58 + 0.55
   total_w <- theme$content_width_in
   lang_w <- max((total_w - meta_w) / max(n_lang, 1L), 0.40)
   ft <- flextable::width(ft, j = "Field",     width = 0.62, unit = "in")
   ft <- flextable::width(ft, j = "No",        width = 0.30, unit = "in")
   ft <- flextable::width(ft, j = "Variable",  width = 1.30, unit = "in")
-  ft <- flextable::width(ft, j = "Type",      width = 0.55, unit = "in")
+  ft <- flextable::width(ft, j = "Type",      width = 0.62, unit = "in")
   ft <- flextable::width(ft, j = "Mandatory", width = 0.50, unit = "in")
-  ft <- flextable::width(ft, j = "Filter",    width = 0.65, unit = "in")
+  ft <- flextable::width(ft, j = "Filter",    width = 0.58, unit = "in")
   ft <- flextable::width(ft, j = "Value",     width = 0.55, unit = "in")
   for (idx in seq_len(n_lang)) {
     ft <- flextable::width(ft, j = 7L + idx, width = lang_w, unit = "in")
@@ -1180,7 +1191,7 @@ lss_table_template_polish <- function(ft, theme, rows, n_lang) {
   }
   # Welcome / End text rows: white background framed by 1 pt accent
   # borders so they read as "preface" / "epilogue" content sitting
-  # outside the codebook's data flow. Same row-1 guard as for the
+  # outside the table's data flow. Same row-1 guard as for the
   # group filet.
   accent_border <- officer::fp_border(color = theme$color_accent, width = 1)
   for (wi in welcome_idx) {
@@ -1209,6 +1220,6 @@ lss_table_template_polish <- function(ft, theme, rows, n_lang) {
   if (is.null(a) || length(a) == 0L || is.na(a) || !nzchar(a)) b else a
 }
 
-# lss_html_to_text() is defined in R/html.R; the codebook template
+# lss_html_to_text() is defined in R/html.R; the table template
 # relies on the canonical implementation to keep stem / subq /
 # answer-label text identical to what the cards template renders.

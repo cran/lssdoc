@@ -26,7 +26,7 @@ lss_render_state <- function(model) {
 #' Assembles the data-column name LimeSurvey gives a response variable
 #' from its parts, in one of two styles:
 #' * `"brackets"` (default) -- the exact form of the **CSV / Excel data
-#'   export** header, so the rendered codebook and its variable index
+#'   export** header, so the rendered questionnaire and its variable index
 #'   match the raw data file column for column: `parent[part]`,
 #'   `parent[part][scale]` (e.g. `sleephours[WEEK]`,
 #'   `trustinstitutions[PARL][1]`, `devicerank[59842]`).

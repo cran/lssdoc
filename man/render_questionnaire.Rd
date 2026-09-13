@@ -108,7 +108,7 @@ fit on A4 portrait): the \code{"cards"} template gets A4 portrait, while
 the dense \code{"table"} template gets A4 landscape, which it needs to
 stay readable. Pass an explicit value to override; selecting a wider
 page makes every panel (meta table, item table, audit/quota tables
-and the dense codebook table) expand automatically to fill the
+and the dense table) expand automatically to fill the
 content width, in both templates.}
 
 \item{show_toc}{Logical. If \code{TRUE} (default), include a table of
@@ -144,7 +144,7 @@ for scroll-time navigation.}
 
 \item{show_raw_filter}{Logical. If \code{FALSE} (the default), the
 Filter cell shows only the human-readable form (e.g.
-\code{Q1 = 1}) -- editorial codebook style, matching ESS / MOSAiCH /
+\code{Q1 = 1}) -- editorial style, matching ESS / MOSAiCH /
 GESIS conventions. Set to \code{TRUE} to also surface the raw
 LimeSurvey relevance expression underneath in small italic
 gray (e.g. \code{!is_empty(Q1.NAOK) && (Q1.NAOK == 1)}), useful for
