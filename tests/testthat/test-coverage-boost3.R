@@ -227,7 +227,7 @@ test_that("a group description and answer-order note render in both templates", 
   skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   # Inject a group description (all four languages) so the group-intro
   # language block (otherwise dead -- every demo group has an empty
   # description) is rendered.

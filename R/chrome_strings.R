@@ -163,6 +163,44 @@ lss_chrome_strings <- function(lang = "en") {
     audit_severity_warning = "warning",
     audit_severity_note   = "note",
     # ---- ORCID prefix in author block ----
+    # ---- Form template (0.3.0): block titles ----
+    form_block_survey     = "Survey",
+    form_block_group      = "Group",
+    form_block_question   = "Question",
+    form_block_quota      = "Quota",
+    # ---- Form template: field labels ----
+    form_title            = "Title",
+    form_name             = "Name",
+    # Never written as a row of its own -- the question code lives in the
+    # value cell of the title row -- but `check_form_docx()` and
+    # `read_form_docx()` (step 3) use it to name that field in messages.
+    form_code             = "Code",
+    form_wording          = "Wording",
+    form_rows             = "Rows",
+    form_columns          = "Columns",
+    form_min_answers      = "Min. answers",
+    form_max_answers      = "Max. answers",
+    form_action           = "Action",
+    form_message          = "Message",
+    form_other_position   = "Position of \"Other\"",
+    # ---- Form template: accepted field values ----
+    form_other_position_end       = "End",
+    form_other_position_beginning = "Beginning",
+    form_other_position_after_fmt = "After %s",
+    form_other            = "Other",
+    # ---- Form template: hints shown in a blank template ----
+    form_yes_no_hint      = "Yes / No",
+    form_hint_type        = "kind code or localized label",
+    form_hint_languages   = "LimeSurvey codes, primary first",
+    form_hint_filter      = "Q1 = 1 / Q2 in [1, other] / count(Q3) >= 2",
+    form_hint_options     = "one per line, \"1 = Label\"; \"Other\" is reserved (\"9 = Other\" for a plain option)",
+    form_hint_rows        = "one per line, \"1 = Label\"",
+    form_hint_columns     = "one per line, \"1 = Label\"",
+    form_hint_exclusive   = "option codes, one per line",
+    form_hint_answers     = "whole number",
+    form_hint_other_position = "End / Beginning / After <code>",
+    form_hint_limit       = "whole number, 0 = no limit",
+    form_hint_condition   = "code = value",
     orcid_label           = "ORCID"
   )
 
@@ -286,6 +324,41 @@ lss_chrome_strings <- function(lang = "en") {
     audit_severity_error  = "erreur",
     audit_severity_warning = "avertissement",
     audit_severity_note   = "note",
+    # ---- Form template (0.3.0): block titles ----
+    form_block_survey     = "Enqu\u00EAte",
+    form_block_group      = "Groupe",
+    form_block_question   = "Question",
+    form_block_quota      = "Quota",
+    # ---- Form template: field labels ----
+    form_title            = "Titre",
+    form_name             = "Nom",
+    form_code             = "Code",
+    form_wording          = "Libell\u00E9",
+    form_rows             = "Lignes",
+    form_columns          = "Colonnes",
+    form_min_answers      = "R\u00E9ponses min.",
+    form_max_answers      = "R\u00E9ponses max.",
+    form_action           = "Action",
+    form_message          = "Message",
+    form_other_position   = "Position de \u00AB Autre \u00BB",
+    # ---- Form template: accepted field values ----
+    form_other_position_end       = "Fin",
+    form_other_position_beginning = "D\u00E9but",
+    form_other_position_after_fmt = "Apr\u00E8s %s",
+    form_other            = "Autre",
+    # ---- Form template: hints shown in a blank template ----
+    form_yes_no_hint      = "Oui / Non",
+    form_hint_type        = "code ou libell\u00E9 du type",
+    form_hint_languages   = "codes LimeSurvey, principale d'abord",
+    form_hint_filter      = "Q1 = 1 / Q2 in [1, autre] / count(Q3) >= 2",
+    form_hint_options     = "une par ligne, \"1 = Libell\u00E9\" ; \"Autre\" est r\u00E9serv\u00E9 (\"9 = Autre\" pour une option ordinaire)",
+    form_hint_rows        = "une par ligne, \"1 = Libell\u00E9\"",
+    form_hint_columns     = "une par ligne, \"1 = Libell\u00E9\"",
+    form_hint_exclusive   = "codes des options, un par ligne",
+    form_hint_answers     = "nombre entier",
+    form_hint_other_position = "Fin / D\u00E9but / Apr\u00E8s <code>",
+    form_hint_limit       = "nombre entier, 0 = sans limite",
+    form_hint_condition   = "code = valeur",
     orcid_label           = "ORCID"
   )
 
@@ -406,6 +479,41 @@ lss_chrome_strings <- function(lang = "en") {
     audit_severity_error  = "Fehler",
     audit_severity_warning = "Warnung",
     audit_severity_note   = "Hinweis",
+    # ---- Form template (0.3.0): block titles ----
+    form_block_survey     = "Umfrage",
+    form_block_group      = "Gruppe",
+    form_block_question   = "Frage",
+    form_block_quota      = "Quote",
+    # ---- Form template: field labels ----
+    form_title            = "Titel",
+    form_name             = "Name",
+    form_code             = "Code",
+    form_wording          = "Fragetext",
+    form_rows             = "Zeilen",
+    form_columns          = "Spalten",
+    form_min_answers      = "Min. Antworten",
+    form_max_answers      = "Max. Antworten",
+    form_action           = "Aktion",
+    form_message          = "Meldung",
+    form_other_position   = "Position von \u201ESonstiges\u201C",
+    # ---- Form template: accepted field values ----
+    form_other_position_end       = "Ende",
+    form_other_position_beginning = "Anfang",
+    form_other_position_after_fmt = "Nach %s",
+    form_other            = "Sonstiges",
+    # ---- Form template: hints shown in a blank template ----
+    form_yes_no_hint      = "Ja / Nein",
+    form_hint_type        = "Typcode oder Bezeichnung",
+    form_hint_languages   = "LimeSurvey-Codes, Hauptsprache zuerst",
+    form_hint_filter      = "Q1 = 1 / Q2 in [1, sonstiges] / count(Q3) >= 2",
+    form_hint_options     = "eine pro Zeile, \"1 = Bezeichnung\"; \"Sonstiges\" ist reserviert (\"9 = Sonstiges\" f\u00FCr eine normale Option)",
+    form_hint_rows        = "eine pro Zeile, \"1 = Bezeichnung\"",
+    form_hint_columns     = "eine pro Zeile, \"1 = Bezeichnung\"",
+    form_hint_exclusive   = "Optionscodes, einer pro Zeile",
+    form_hint_answers     = "ganze Zahl",
+    form_hint_other_position = "Ende / Anfang / Nach <code>",
+    form_hint_limit       = "ganze Zahl, 0 = ohne Limit",
+    form_hint_condition   = "Code = Wert",
     orcid_label           = "ORCID"
   )
 
@@ -528,6 +636,41 @@ lss_chrome_strings <- function(lang = "en") {
     audit_severity_error  = "error",
     audit_severity_warning = "advertencia",
     audit_severity_note   = "nota",
+    # ---- Form template (0.3.0): block titles ----
+    form_block_survey     = "Encuesta",
+    form_block_group      = "Grupo",
+    form_block_question   = "Pregunta",
+    form_block_quota      = "Cuota",
+    # ---- Form template: field labels ----
+    form_title            = "T\u00EDtulo",
+    form_name             = "Nombre",
+    form_code             = "C\u00F3digo",
+    form_wording          = "Enunciado",
+    form_rows             = "Filas",
+    form_columns          = "Columnas",
+    form_min_answers      = "Respuestas m\u00EDn.",
+    form_max_answers      = "Respuestas m\u00E1x.",
+    form_action           = "Acci\u00F3n",
+    form_message          = "Mensaje",
+    form_other_position   = "Posici\u00F3n de \u00ABOtro\u00BB",
+    # ---- Form template: accepted field values ----
+    form_other_position_end       = "Final",
+    form_other_position_beginning = "Inicio",
+    form_other_position_after_fmt = "Despu\u00E9s de %s",
+    form_other            = "Otro",
+    # ---- Form template: hints shown in a blank template ----
+    form_yes_no_hint      = "S\u00ED / No",
+    form_hint_type        = "c\u00F3digo o etiqueta del tipo",
+    form_hint_languages   = "c\u00F3digos LimeSurvey, principal primero",
+    form_hint_filter      = "Q1 = 1 / Q2 in [1, otro] / count(Q3) >= 2",
+    form_hint_options     = "una por l\u00EDnea, \"1 = Etiqueta\"; \"Otro\" est\u00E1 reservado (\"9 = Otro\" para una opci\u00F3n normal)",
+    form_hint_rows        = "una por l\u00EDnea, \"1 = Etiqueta\"",
+    form_hint_columns     = "una por l\u00EDnea, \"1 = Etiqueta\"",
+    form_hint_exclusive   = "c\u00F3digos de opci\u00F3n, uno por l\u00EDnea",
+    form_hint_answers     = "n\u00FAmero entero",
+    form_hint_other_position = "Final / Inicio / Despu\u00E9s de <code>",
+    form_hint_limit       = "n\u00FAmero entero, 0 = sin l\u00EDmite",
+    form_hint_condition   = "c\u00F3digo = valor",
     orcid_label           = "ORCID"
   )
 
@@ -648,6 +791,41 @@ lss_chrome_strings <- function(lang = "en") {
     audit_severity_error  = "errore",
     audit_severity_warning = "avvertimento",
     audit_severity_note   = "nota",
+    # ---- Form template (0.3.0): block titles ----
+    form_block_survey     = "Indagine",
+    form_block_group      = "Gruppo",
+    form_block_question   = "Domanda",
+    form_block_quota      = "Quota",
+    # ---- Form template: field labels ----
+    form_title            = "Titolo",
+    form_name             = "Nome",
+    form_code             = "Codice",
+    form_wording          = "Testo",
+    form_rows             = "Righe",
+    form_columns          = "Colonne",
+    form_min_answers      = "Risposte min.",
+    form_max_answers      = "Risposte max.",
+    form_action           = "Azione",
+    form_message          = "Messaggio",
+    form_other_position   = "Posizione di \u00ABAltro\u00BB",
+    # ---- Form template: accepted field values ----
+    form_other_position_end       = "Fine",
+    form_other_position_beginning = "Inizio",
+    form_other_position_after_fmt = "Dopo %s",
+    form_other            = "Altro",
+    # ---- Form template: hints shown in a blank template ----
+    form_yes_no_hint      = "S\u00EC / No",
+    form_hint_type        = "codice o etichetta del tipo",
+    form_hint_languages   = "codici LimeSurvey, principale per prima",
+    form_hint_filter      = "Q1 = 1 / Q2 in [1, altro] / count(Q3) >= 2",
+    form_hint_options     = "una per riga, \"1 = Etichetta\"; \"Altro\" \u00E8 riservato (\"9 = Altro\" per un'opzione normale)",
+    form_hint_rows        = "una per riga, \"1 = Etichetta\"",
+    form_hint_columns     = "una per riga, \"1 = Etichetta\"",
+    form_hint_exclusive   = "codici delle opzioni, uno per riga",
+    form_hint_answers     = "numero intero",
+    form_hint_other_position = "Fine / Inizio / Dopo <code>",
+    form_hint_limit       = "numero intero, 0 = senza limite",
+    form_hint_condition   = "codice = valore",
     orcid_label           = "ORCID"
   )
 

@@ -3,7 +3,7 @@
 test_that("read_lss exposes the quota sections", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   expect_true(!is.null(lss$quotas) && nrow(lss$quotas) >= 1L)
   expect_true(!is.null(lss$quota_members))
   expect_true(!is.null(lss$quota_languagesettings))
@@ -49,7 +49,7 @@ test_that("show_quotas = FALSE and quota-less surveys produce no quota section",
 
   # A quota-less survey (quotas stripped in memory) renders no quota
   # full message even with the default show_quotas = TRUE.
-  lss_noq <- read_lss(demo)
+  lss_noq <- lss_cached(demo)
   lss_noq$quotas <- lss_noq$quotas[0, , drop = FALSE]
   lss_noq$quota_members <- lss_noq$quota_members[0, , drop = FALSE]
   out_none <- tempfile(fileext = ".docx")

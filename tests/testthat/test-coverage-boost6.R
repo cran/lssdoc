@@ -5,7 +5,7 @@
 test_that("print.lss summarizes the structure", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   # print.lss writes through cli (its own connection); just confirm it
   # runs cleanly and returns its argument invisibly.
   expect_no_error(print(lss))
@@ -19,7 +19,7 @@ test_that(".render_questionnaire_docx validates lss and output", {
   )
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   expect_error(
     lssdoc:::.render_questionnaire_docx(lss, 123),
     class = "lssdoc_bad_output"
@@ -37,7 +37,7 @@ test_that(".render_audit_docx validates lss and output", {
   )
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   expect_error(lssdoc:::.render_audit_docx(lss, 123), class = "lssdoc_bad_output")
 })
 
@@ -51,8 +51,8 @@ test_that("lss_inject_update_fields is a no-op on a missing file", {
 test_that("lss_header_titles falls back when the survey has no language settings", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
-  lss2 <- read_lss(path)
+  lss <- lss_cached(path)
+  lss2 <- lss_cached(path)
   lss2$survey_language_settings <- NULL
   expect_identical(lssdoc:::lss_header_titles(lss2, c("en", "fr")), c("", ""))
   lss$survey_language_settings <- lss$survey_language_settings[0, , drop = FALSE]

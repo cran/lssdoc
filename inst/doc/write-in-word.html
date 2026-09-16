@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Write a questionnaire in Word</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Write a questionnaire in Word</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(lssdoc)</span></code></pre></div>
+<p>Many questionnaires are written by people who live in Word, not in R:
+researchers, methodologists, translators, ethics committees. lssdoc lets
+them write the questionnaire in a <strong>Word form</strong> and turns
+that form into a LimeSurvey <code>.lss</code> file ready to import.
+Nothing is typed twice, nothing is uploaded anywhere, and every mistake
+is reported before LimeSurvey ever sees the file.</p>
+<p>The workflow has four steps and four functions:</p>
+<ol style="list-style-type: decimal">
+<li><code>lss_template_docx()</code> writes a blank form.</li>
+<li>The author fills it in, in Word.</li>
+<li><code>check_form_docx()</code> reports every problem in the filled
+form; <code>read_form_docx()</code> turns it into a specification once
+it is clean.</li>
+<li><code>write_lss()</code> writes the <code>.lss</code> file, which
+you import into LimeSurvey.</li>
+</ol>
+<p>An existing survey can enter the loop too: <code>as_lss_spec()</code>
+converts a survey read with <code>read_lss()</code> into a
+specification, and <code>write_form_docx()</code> renders any
+specification as the form, so a questionnaire can be exported from
+LimeSurvey, edited in Word and re-imported.</p>
+<p>The form functions are <strong>experimental</strong>: their interface
+may still change, and the form’s own contract is versioned (see <em>What
+the reader refuses</em>). Reading a form needs only the packages lssdoc
+imports; writing one needs the suggested packages officer and
+flextable.</p>
+<div id="get-a-blank-form" class="section level2">
+<h2>1. Get a blank form</h2>
+<p><code>lss_template_docx()</code> writes a form with one example
+question per question type, so the author sees every field a type can
+carry. The <code>lang</code> argument sets the language of the labels
+and hints — English, French, German, Spanish or Italian — independently
+of the questionnaire’s own languages.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>template <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.docx&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">lss_template_docx</span>(template, <span class="at">lang =</span> <span class="st">&quot;en&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; ✔ Wrote &#39;C:\Users\at\AppData\Local\Temp\RtmpK23XR3\file94dc4ea717e2.docx&#39; (21 questions, 2 groups, 1 quota).</span></span></code></pre></div>
+<p>The person who writes the questionnaire often does not use R at all.
+The same blank forms can be downloaded from the <a href="https://amaltawfik.github.io/lssdoc/">package website</a>: a short
+one to fill in, in each of the five interface languages, and a longer
+one showing every question type. They are regenerated whenever the site
+is built, so the form offered there is always the one the current
+version reads.</p>
+<p>Open the file in Word. It is a sequence of two-column tables, one per
+block, in the order of the questionnaire:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block</th>
+<th>Rows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Survey</strong> (once, first)</td>
+<td>Title, Languages, Welcome text, End text</td>
+</tr>
+<tr class="even">
+<td><strong>Group</strong></td>
+<td>Title, Description</td>
+</tr>
+<tr class="odd">
+<td><strong>Question</strong></td>
+<td>Type, Mandatory, Filter, Wording, Help, then the rows the type
+needs: Options, Exclusive, Rows, Columns, Min. answers, Max. answers,
+Position of “Other”</td>
+</tr>
+<tr class="even">
+<td><strong>Quota</strong></td>
+<td>Name, Limit, Action, Condition, Message</td>
+</tr>
+</tbody>
+</table>
+<p>The first row of every table names the block; for a question it also
+carries the <strong>question code</strong> — the variable name in the
+exported data. The left column holds the field labels, the right column
+is yours. In the blank form, a muted hint under each label recalls the
+syntax, and defaults are already filled in (a question is optional,
+always shown, without an “Other” option).</p>
+<p>To add a question, copy a Question table and paste it after the empty
+line that follows a block; to remove one, delete its table. Blocks can
+also be reordered by moving tables.</p>
+</div>
+<div id="fill-it-in" class="section level2">
+<h2>2. Fill it in</h2>
+<p>The form is plain text: no HTML, no formatting. A handful of
+conventions cover every questionnaire.</p>
+<p><strong>One value per line.</strong> Options, rows and columns take
+one entry per line — press Enter (or Shift+Enter) between them. Each
+entry is either <code>code = Label</code> or a bare <code>Label</code>,
+in which case codes are numbered automatically (1, 2, 3, …). Codes are
+variable values in the data file, so choose them deliberately when they
+matter.</p>
+<p>A line is split at its <strong>first</strong> <code>=</code>, and
+only when what precedes it is a single word: <code>1 = Fees = 0</code>
+is the code <code>1</code> with the label <code>Fees = 0</code>, and a
+label may contain as many further <code>=</code> as it likes. A sentence
+like <code>Salary = market rate</code> has spaces on the left, so it is
+not a code at all: the whole line is the label, and it is numbered
+automatically. If the left side has no spaces but is not a valid code —
+letters and digits only, at most 20 characters — the line is reported
+rather than quietly taken as a label.</p>
+<pre><code>1 = Never
+2 = Sometimes
+3 = Often
+4 = Always</code></pre>
+<p><strong>The “Other” option.</strong> The reserved word
+<code>Other</code> (or <code>Autre</code>, <code>Sonstiges</code>,
+<code>Otro</code>, <code>Altro</code>) alone in the Options adds
+LimeSurvey’s own free-text “Other” option;
+<code>Other = Please specify</code> gives it a label. An ordinary option
+that happens to be called Other needs an explicit code:
+<code>9 = Other</code>.</p>
+<p><strong>Type.</strong> The question type is one of the codes in the
+table below (<code>single</code>, <code>multiple</code>,
+<code>array</code>, …). Each type decides which rows the block carries;
+extra rows are ignored, missing required rows are reported.</p>
+<p><strong>Mandatory.</strong> <code>yes</code> or <code>no</code> in
+any of the five label languages (also <code>y</code>/<code>n</code>,
+<code>true</code>/<code>false</code>, <code>1</code>/<code>0</code>).
+Empty means no.</p>
+<p><strong>Filter.</strong> When the question should be shown only in
+some cases, write the condition in the small language of section 4.
+Empty means always shown.</p>
+<p><strong>Several languages.</strong> Declare them in the Survey block,
+comma-separated, primary language first: <code>fr, en</code>. Every text
+field is then labelled once per language — <code>Wording [fr]</code>,
+<code>Wording [en]</code> — and every language is required for every
+text, because a questionnaire with a missing translation is exactly what
+the audit exists to catch. With a single language, labels carry no
+suffix.</p>
+<p>Ask for that form directly rather than adding the rows by hand, and
+the languages you want are already in place:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">lss_template_docx</span>(<span class="st">&quot;questionnaire.docx&quot;</span>, <span class="at">lang =</span> <span class="st">&quot;fr&quot;</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>                  <span class="at">languages =</span> <span class="fu">c</span>(<span class="st">&quot;fr&quot;</span>, <span class="st">&quot;en&quot;</span>))</span></code></pre></div>
+<p><code>languages</code> is the questionnaire’s own content;
+<code>lang</code> is only the language of the form’s labels and hints. A
+French-speaking author can therefore prepare an English-and-German
+questionnaire on a French form.</p>
+</div>
+<div id="question-types" class="section level2">
+<h2>3. Question types</h2>
+<p>Write the <strong>Type</strong> value of the first column in the Type
+row of a question block. The other columns say which rows that type
+accepts: whether it takes Options, Rows and Columns, how many options it
+needs at least, whether it can carry an “Other” option or an exclusive
+one, and the codes it already has built in (a yes/no question does not
+need options: its codes are <code>Y</code> and <code>N</code>).</p>
+<p>This table is generated from the package’s own table of types, so it
+cannot disagree with what <code>read_form_docx()</code> accepts.</p>
+<p>A blank cell means the type does not use that row: leave it out, and
+the blank form will not show it in the first place.</p>
+<table>
+<colgroup>
+<col width="12%" />
+<col width="25%" />
+<col width="6%" />
+<col width="4%" />
+<col width="6%" />
+<col width="4%" />
+<col width="5%" />
+<col width="8%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Meaning</th>
+<th align="left">Options</th>
+<th align="left">Rows</th>
+<th align="left">Columns</th>
+<th align="left">Min.</th>
+<th align="left">Other</th>
+<th align="left">Exclusive</th>
+<th align="left">Built-in codes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">single</td>
+<td align="left">Single choice (radio)</td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">2</td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">dropdown</td>
+<td align="left">Single choice (dropdown)</td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">2</td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">singlecomment</td>
+<td align="left">Single choice with comment</td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">2</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">multiple</td>
+<td align="left">Multiple choice</td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">2</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">array</td>
+<td align="left">Array (rows and columns)</td>
+<td align="left"></td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">array5</td>
+<td align="left">Array, 5-point scale</td>
+<td align="left"></td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">1, 2, 3, 4, 5</td>
+</tr>
+<tr class="odd">
+<td align="left">array10</td>
+<td align="left">Array, 10-point scale</td>
+<td align="left"></td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">1, 2, 3, 4, 5, 6, 7, 8, 9, 10</td>
+</tr>
+<tr class="even">
+<td align="left">arrayyesno</td>
+<td align="left">Array, yes/no/uncertain</td>
+<td align="left"></td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Y, N, U</td>
+</tr>
+<tr class="odd">
+<td align="left">arraytrend</td>
+<td align="left">Array, increase/same/decrease</td>
+<td align="left"></td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">I, S, D</td>
+</tr>
+<tr class="even">
+<td align="left">ranking</td>
+<td align="left">Ranking</td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">2</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">multitext</td>
+<td align="left">Multiple short texts</td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">1</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">multinumeric</td>
+<td align="left">Multiple numeric inputs</td>
+<td align="left">yes</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">1</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">text</td>
+<td align="left">Long free text</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">shorttext</td>
+<td align="left">Short free text</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">hugetext</td>
+<td align="left">Huge free text</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">numeric</td>
+<td align="left">Numeric input</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">date</td>
+<td align="left">Date</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">yesno</td>
+<td align="left">Yes/no</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Y, N</td>
+</tr>
+<tr class="odd">
+<td align="left">gender</td>
+<td align="left">Gender</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">M, F</td>
+</tr>
+<tr class="even">
+<td align="left">fivepoint</td>
+<td align="left">Five-point choice</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">1, 2, 3, 4, 5</td>
+</tr>
+<tr class="odd">
+<td align="left">display</td>
+<td align="left">Text display</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>Internally, LimeSurvey identifies a question type by a <strong>single
+character</strong> stored in the survey file, and several of those
+characters are punctuation: <code>!</code> is the dropdown list,
+<code>1</code> a dual scale, <code>:</code> an array of numbers,
+<code>;</code> an array of texts. You never type those in the form — the
+package translates them — but they appear in the table returned by
+<code>lssdoc:::lss_kinds_reference()</code>, alongside the LimeSurvey
+theme name, for anyone comparing a form with a raw export.</p>
+<p>Defaults shared by all types:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">setting</th>
+<th align="left">default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">mandatory</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">relevance</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">other</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">exclusive</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">option_code_from</td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">language</td>
+<td align="left">fr</td>
+</tr>
+<tr class="odd">
+<td align="left">primary_language</td>
+<td align="left">1</td>
+</tr>
+</tbody>
+</table>
+<p>Some LimeSurvey types are deliberately not supported yet, each for a
+concrete reason (usually a storage mechanism the package has not yet
+seen in a real export). They are listed with their reason:</p>
+<table>
+<colgroup>
+<col width="5%" />
+<col width="22%" />
+<col width="72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">type</th>
+<th align="left">label</th>
+<th align="left">reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">P</td>
+<td align="left">Multiple choice with comments</td>
+<td align="left">Subquestion mechanism identical to
+<code>multiple</code>, but its LS6 theme name is not attested.</td>
+</tr>
+<tr class="even">
+<td align="left">H</td>
+<td align="left">Array by column</td>
+<td align="left">Rows-and-columns shape identical to <code>array</code>
+(F), but its LS6 theme name is not attested.</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">Array (dual scale)</td>
+<td align="left">Needs two answer scales (scale_id 0 and 1), which the
+emitter does not write.</td>
+</tr>
+<tr class="even">
+<td align="left">;</td>
+<td align="left">Array (texts)</td>
+<td align="left">Needs dual-scale subquestions (the text columns live on
+scale_id 1): unproven mechanism.</td>
+</tr>
+<tr class="odd">
+<td align="left">:</td>
+<td align="left">Array (numbers)</td>
+<td align="left">Same unproven dual-scale subquestion mechanism as
+<code>;</code>.</td>
+</tr>
+<tr class="even">
+<td align="left">*</td>
+<td align="left">Equation</td>
+<td align="left">Collects no response and carries its formula in an
+attribute whose LS6 theme name is not attested.</td>
+</tr>
+<tr class="odd">
+<td align="left">|</td>
+<td align="left">File upload</td>
+<td align="left">Needs the file-upload attribute family (max size,
+allowed types), none of it attested.</td>
+</tr>
+<tr class="even">
+<td align="left">I</td>
+<td align="left">Language switch</td>
+<td align="left">Not a question: a language selector, with no attested
+LS6 theme name.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="filters" class="section level2">
+<h2>4. Filters</h2>
+<p>A filter is a condition on an earlier question. Three forms are
+understood, and only these three, because they are the ones LimeSurvey
+handles without surprises:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Form</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Q1 = 2</code></td>
+<td>Q1 was answered with code 2</td>
+</tr>
+<tr class="even">
+<td><code>Q1 in [1, 3, autre]</code></td>
+<td>Q1 was answered with code 1, code 3 or the “Other” option</td>
+</tr>
+<tr class="odd">
+<td><code>count(Q4) &gt;= 2</code></td>
+<td>at least two options of the multiple-choice question Q4 are
+ticked</td>
+</tr>
+</tbody>
+</table>
+<p><code>autre</code> (in any of the five languages) is the only way to
+refer to the “Other” option; codes are compared exactly as written. The
+target must be defined <strong>before</strong> the question that uses
+it, and must be a single-choice question for <code>=</code> and
+<code>in</code>, a multiple-choice question for <code>count()</code> —
+anything else is reported. Quota conditions use the <code>=</code> form
+only.</p>
+</div>
+<div id="check-the-form-then-read-it" class="section level2">
+<h2>5. Check the form, then read it</h2>
+<p><code>check_form_docx()</code> is a dry run: it reads the whole form
+and reports <strong>every</strong> problem at once — the block, the
+question code and the field are named each time — so the author fixes
+them in one pass instead of discovering them one by one.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">check_form_docx</span>(template)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; ── lssdoc form check ───────────────────────────────────────────────────────────</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; File: &#39;C:\Users\at\AppData\Local\Temp\RtmpK23XR3\file94dc4ea717e2.docx&#39;</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; ✔ No problems found: the form reads.</span></span></code></pre></div>
+<p>Problems come in a few families, each with its own condition class so
+they can be caught programmatically:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Class</th>
+<th>Typical cause</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>lssdoc_bad_form_file</code></td>
+<td>not a Word file, or not a form</td>
+</tr>
+<tr class="even">
+<td><code>lssdoc_bad_form_marker</code></td>
+<td>the form’s version marker is missing (the document was recreated, or
+the tables were pasted into another document) or belongs to another
+version of the package</td>
+</tr>
+<tr class="odd">
+<td><code>lssdoc_bad_form_layout</code></td>
+<td>merged cells, a table that is not two columns, a nested table,
+tracked changes, an automatic list</td>
+</tr>
+<tr class="even">
+<td><code>lssdoc_bad_form_block</code></td>
+<td>a table that does not start with a block title, a question before
+any group, two Survey blocks</td>
+</tr>
+<tr class="odd">
+<td><code>lssdoc_bad_form_key</code></td>
+<td>an unknown or duplicated field label</td>
+</tr>
+<tr class="even">
+<td><code>lssdoc_bad_form_value</code></td>
+<td>a value the field cannot take: unknown type, bad option line,
+missing language</td>
+</tr>
+<tr class="odd">
+<td><code>lssdoc_bad_form_spec</code></td>
+<td>the form is well-formed but the questionnaire is not (the same
+checks <code>lss_spec()</code> applies)</td>
+</tr>
+</tbody>
+</table>
+<p><code>read_form_docx()</code> applies the same checks and stops at
+the first problem; when the form is clean it returns the
+specification:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">read_form_docx</span>(template)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>spec</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; &lt;lss_spec&gt; &quot;lssdoc example questionnaire&quot; (en)</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; 2 groups, 20 questions, 1 quota</span></span></code></pre></div>
+</div>
+<div id="write-the-limesurvey-file" class="section level2">
+<h2>6. Write the LimeSurvey file</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>lss_file <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.lss&quot;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">write_lss</span>(spec, lss_file)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; ✔ Wrote &#39;C:\Users\at\AppData\Local\Temp\RtmpK23XR3\file94dc3bd03ae8.lss&#39; (20 questions, 2 groups, 1 quota).</span></span></code></pre></div>
+<p>Import the file in LimeSurvey (<em>Surveys → Create → Import</em>).
+All declared languages are written, including the labels of “Other”
+options and every other localized attribute, which LimeSurvey silently
+drops when the language is missing — the package emits them the way a
+real export does.</p>
+<p>Two habits make the loop safe. First, export the survey back from
+LimeSurvey and read it with <code>read_lss()</code> and
+<code>audit_lss()</code>: what you get back is what respondents will
+see.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>back <span class="ot">&lt;-</span> <span class="fu">read_lss</span>(lss_file)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">audit_lss</span>(back)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; ── lssdoc audit ────────────────────────────────────────────────────────────────</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; File: &#39;C:\Users\at\AppData\Local\Temp\RtmpK23XR3\file94dc3bd03ae8.lss&#39;</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; Languages: &quot;en&quot;</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; ✔ No anomalies detected.</span></span></code></pre></div>
+<p>Second, keep the filled form: it is the source of the questionnaire,
+and re-running the four steps after an edit is cheaper than editing in
+LimeSurvey.</p>
+</div>
+<div id="edit-an-existing-survey" class="section level2">
+<h2>7. Edit an existing survey</h2>
+<p>A survey already in LimeSurvey can be brought into the same loop.
+Export it, read it, convert it, render the form:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>lss <span class="ot">&lt;-</span> <span class="fu">read_lss</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;demo_survey.lss&quot;</span>, <span class="at">package =</span> <span class="st">&quot;lssdoc&quot;</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.docx&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">write_form_docx</span>(lss, form, <span class="at">lang =</span> <span class="st">&quot;en&quot;</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; Warning: Dropped 5 items `lss_spec()` cannot express.</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; ✖ imc -- type: Equation (type &quot;*&quot;) is not authorable: Collects no response and</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt;   carries its formula in an attribute whose LS6 theme name is not attested.</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; ✖ adaptability -- type: Array (numbers) (type &quot;:&quot;) is not authorable: Same</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;   unproven dual-scale subquestion mechanism as `;`.</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; ✖ trustinstitutions -- type: Array (dual scale) (type &quot;1&quot;) is not authorable:</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt;   Needs two answer scales (scale_id 0 and 1), which the emitter does not write.</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; ✖ mediaquality -- type: Array (texts) (type &quot;;&quot;) is not authorable: Needs</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt;   dual-scale subquestions (the text columns live on scale_id 1): unproven</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt;   mechanism.</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; ✖ quota fin -- quota: it combines 2 question(s); the spec expresses a quota on</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt;   exactly one</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; ℹ The specification describes the rest of the survey.</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; Warning: Converting this survey into an `lss_spec()` is lossy.</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; ! HTML flattened to plain text in 3 fields: &quot;survey welcome text&quot;, &quot;survey end</span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt;   text&quot;, and &quot;text of question thankyou&quot;.</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; ! question respondentrole: the &quot;other&quot; option carries no label; the default</span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#&gt;   wording is used</span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="co">#&gt; ! question nationality: the &quot;other&quot; option carries no label; the default</span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt;   wording is used</span></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="co">#&gt; ! quota fin2: its end URL is dropped (the spec has no URL field)</span></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="co">#&gt; ! survey settings datestamp, usecookie, allowsave, autoredirect, printanswers,</span></span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="co">#&gt;   showsurveypolicynotice and 41 more have no place in a specification;</span></span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="co">#&gt;   write_lss() re-emits its own defaults</span></span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="co">#&gt; ℹ Review the result, or fix the survey in the Word authoring form.</span></span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="co">#&gt; ✔ Wrote &#39;C:\Users\at\AppData\Local\Temp\RtmpK23XR3\file94dc6b774ad4.docx&#39; (43 questions, 6 groups, 1 quota).</span></span></code></pre></div>
+<p>The conversion is honest about its limits. Question types the form
+does not support and filters written in LimeSurvey’s full expression
+language cannot be expressed in the form: by default
+(<code>strict = TRUE</code>) the conversion refuses and lists every such
+item; with <code>strict = FALSE</code> it drops them and warns, naming
+each one, so nothing disappears silently. HTML in texts is turned into
+plain text, and a translation missing in the export is filled from the
+primary language — both are reported, and both are things the author can
+then fix in Word.</p>
+</div>
+<div id="what-the-reader-tolerates-and-what-it-refuses" class="section level2">
+<h2>What the reader tolerates, and what it refuses</h2>
+<p>The reader is built for people who type in Word, not for people who
+know XML. It accepts what Word does on its own: a capital letter at the
+start of a cell (<code>Single</code>, <code>Oui</code>,
+<code>Count(Q4) &gt;= 2</code>), curly quotes, a non-breaking space, a
+label typed as <code>Type:</code> or with quotation marks, labels in any
+of the five languages. It never changes the case of a code:
+<code>A</code> stays <code>A</code>.</p>
+<p>It refuses, with a precise message, what it cannot read safely:
+merged cells, tables with more or fewer than two columns, a table inside
+a cell, content controls, tracked changes, and Word’s automatic
+numbering applied to an option list (type <code>1 = Label</code>, not
+<code>1. Label</code>, or turn automatic lists off). And it checks a
+version marker stored in the document’s properties: a form written by
+one version of the package is read by that version’s rules, and a
+document recreated by hand is refused rather than misread.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

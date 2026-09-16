@@ -17,7 +17,7 @@ lss_render_q_text <- function(input, ..., template = "cards") {
 test_that("render_questionnaire honors a single-language scalar 'title'", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  txt <- lss_render_q_text(read_lss(path), chrome_lang = "en",
+  txt <- lss_render_q_text(lss_cached(path), chrome_lang = "en",
                            title = "Custom Override Title")
   expect_true(grepl("Custom Override Title", txt))
 })
@@ -26,7 +26,7 @@ test_that("render_questionnaire honors a per-language named title", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
   txt <- lss_render_q_text(
-    read_lss(path), chrome_lang = "en",
+    lss_cached(path), chrome_lang = "en",
     languages = c("fr", "de"),
     title = c(fr = "Titre FR custom", de = "DE Titel custom")
   )
@@ -42,7 +42,7 @@ test_that("show_header_title = FALSE hides the survey title from page headers", 
   skip_if_not_installed("flextable")
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
-  render_questionnaire(read_lss(path), out, chrome_lang = "en",
+  render_questionnaire(lss_cached(path), out, chrome_lang = "en",
                        show_header_title = FALSE)
   # The doc is well-formed.
   expect_true(file.size(out) > 10000L)
@@ -51,8 +51,8 @@ test_that("show_header_title = FALSE hides the survey title from page headers", 
 test_that("show_source = FALSE hides Source file and Survey ID rows", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  with <- lss_render_q_text(read_lss(path), chrome_lang = "en")
-  without <- lss_render_q_text(read_lss(path), chrome_lang = "en",
+  with <- lss_render_q_text(lss_cached(path), chrome_lang = "en")
+  without <- lss_render_q_text(lss_cached(path), chrome_lang = "en",
                                show_source = FALSE)
   expect_true(grepl("Survey ID", with))
   expect_false(grepl("Survey ID", without))
@@ -67,9 +67,9 @@ test_that("show_item_heading = TRUE adds the bold variable heading line", {
   out_off <- tempfile(fileext = ".docx")
   out_on  <- tempfile(fileext = ".docx")
   on.exit({ unlink(out_off); unlink(out_on) }, add = TRUE)
-  render_questionnaire(read_lss(path), out_off, chrome_lang = "en",
+  render_questionnaire(lss_cached(path), out_off, chrome_lang = "en",
                        show_item_heading = FALSE)
-  render_questionnaire(read_lss(path), out_on,  chrome_lang = "en",
+  render_questionnaire(lss_cached(path), out_on,  chrome_lang = "en",
                        show_item_heading = TRUE)
   # The TRUE variant adds one styled heading paragraph per item, so
   # the document carries strictly more paragraphs than the off
@@ -83,7 +83,7 @@ test_that("show_item_heading = TRUE adds the bold variable heading line", {
 test_that("show_raw_filter = TRUE adds the raw expression underneath the plain form", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   has_rel <- !is.na(lss$questions$relevance) &
     nzchar(lss$questions$relevance) &
     lss$questions$relevance != "1"
@@ -101,7 +101,7 @@ test_that("page_format = 'A4-landscape' is accepted", {
   skip_if_not_installed("flextable")
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
-  render_questionnaire(read_lss(path), out, chrome_lang = "en",
+  render_questionnaire(lss_cached(path), out, chrome_lang = "en",
                        page_format = "A4-landscape")
   expect_true(file.size(out) > 10000L)
 })
@@ -114,7 +114,7 @@ test_that("page_format = 'A3' is accepted", {
   skip_if_not_installed("flextable")
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
-  render_questionnaire(read_lss(path), out, chrome_lang = "en",
+  render_questionnaire(lss_cached(path), out, chrome_lang = "en",
                        page_format = "A3")
   expect_true(file.size(out) > 10000L)
 })
@@ -129,7 +129,7 @@ test_that("font and font_code overrides flow through the theme", {
   skip_if_not_installed("flextable")
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
-  render_questionnaire(read_lss(path), out, chrome_lang = "en",
+  render_questionnaire(lss_cached(path), out, chrome_lang = "en",
                        font = "Source Sans 3", font_code = "JetBrains Mono")
   expect_true(file.size(out) > 10000L)
 })
@@ -181,7 +181,7 @@ test_that("render_audit on a clean survey still renders a doc with the all-clear
   skip_if_not_installed("flextable")
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
-  render_audit(read_lss(path), out, chrome_lang = "en")
+  render_audit(lss_cached(path), out, chrome_lang = "en")
   s <- officer::docx_summary(officer::read_docx(out))
   expect_true(file.size(out) > 5000L)
 })
@@ -218,7 +218,7 @@ test_that("description with line breaks and URLs renders without error", {
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
   render_questionnaire(
-    read_lss(path), out, chrome_lang = "en",
+    lss_cached(path), out, chrome_lang = "en",
     description = paste0(
       "Line one.\n",
       "Line two with https://example.org/page.\n",
@@ -243,7 +243,7 @@ test_that("render_questionnaire accepts authors as a named character vector", {
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
   render_questionnaire(
-    read_lss(path), out, chrome_lang = "en",
+    lss_cached(path), out, chrome_lang = "en",
     authors = c("Amal Tawfik" = "HES-SO Valais-Wallis",
                 "John Doe" = "")
   )
@@ -263,7 +263,7 @@ test_that("render_questionnaire accepts authors as an unnamed character vector",
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
   render_questionnaire(
-    read_lss(path), out, chrome_lang = "en",
+    lss_cached(path), out, chrome_lang = "en",
     authors = c("Amal Tawfik", "John Doe")
   )
   s <- officer::docx_summary(officer::read_docx(out))
@@ -286,7 +286,7 @@ test_that("show_admin_settings = TRUE accepts the flag without error", {
   # underlying LimeSurvey field is non-empty; the fixture is silent
   # on those. We assert only that the path runs without error and
   # produces a valid document.
-  render_questionnaire(read_lss(path), out, chrome_lang = "en",
+  render_questionnaire(lss_cached(path), out, chrome_lang = "en",
                        show_admin_settings = TRUE)
   expect_true(file.size(out) > 10000L)
 })
@@ -301,7 +301,7 @@ test_that("a one-language render produces a portrait document", {
   skip_if_not_installed("flextable")
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
-  render_questionnaire(read_lss(path), out, languages = "fr",
+  render_questionnaire(lss_cached(path), out, languages = "fr",
                        chrome_lang = "fr")
   expect_true(file.size(out) > 10000L)
 })
@@ -312,7 +312,7 @@ test_that("chrome_lang = NULL (default) follows the primary content language", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
   # languages[1] = "fr", chrome_lang unspecified -> French chrome.
-  txt <- lss_render_q_text(read_lss(path),
+  txt <- lss_render_q_text(lss_cached(path),
                            languages = c("fr", "de"),
                            chrome_lang = NULL)
   expect_true(grepl("Filtre", txt))

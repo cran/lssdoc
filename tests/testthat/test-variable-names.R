@@ -19,7 +19,7 @@ test_that("brackets (default) reproduce the CSV/Excel column names", {
   skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   # One representative column per structural family, exactly as it appears
   # in the LimeSurvey CSV/Excel data export.
@@ -55,7 +55,7 @@ test_that("variable_names = 'underscore' switches to the code form", {
   skip_if_not(file.exists(path))
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
-  render_questionnaire(read_lss(path), out, chrome_lang = "en",
+  render_questionnaire(lss_cached(path), out, chrome_lang = "en",
                        variable_names = "underscore")
   txt <- paste(
     officer::docx_summary(officer::read_docx(out))$text, collapse = " | "

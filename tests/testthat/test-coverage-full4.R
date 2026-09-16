@@ -45,10 +45,14 @@ test_that("lss_filter_chrome resolves present tokens and falls back on empty or 
 
 # ============================================================ render_cover
 test_that("cover fallback branches fire for empty titles and null-valued metadata", {
+  # A full render of the four-language demo costs about a minute and the
+  # point here is a branch of the cover renderer, not the document: run
+  # it locally and in CI, keep it out of the CRAN check budget.
+  skip_on_cran()
   skip_if_not_installed("officer")
   skip_if_not_installed("flextable")
 
-  lss <- read_lss(system.file("extdata", "demo_survey.lss", package = "lssdoc"))
+  lss <- demo_lss()
 
   # Drop every survey_language_settings row. lss_header_titles() then
   # yields empty titles, so the cover title loop hits the
@@ -81,10 +85,14 @@ test_that("cover fallback branches fire for empty titles and null-valued metadat
 })
 
 test_that("cover admin block returns empty for an NA language-settings value", {
+  # A full render of the four-language demo costs about a minute and the
+  # point here is a branch of the cover renderer, not the document: run
+  # it locally and in CI, keep it out of the CRAN check budget.
+  skip_on_cran()
   skip_if_not_installed("officer")
   skip_if_not_installed("flextable")
 
-  lss <- read_lss(system.file("extdata", "demo_survey.lss", package = "lssdoc"))
+  lss <- demo_lss()
 
   # Keep the primary-language row so ls_primary is non-empty (line 129's
   # guard is skipped), but blank the alias to NA so
@@ -108,7 +116,7 @@ test_that("lss_render_quotas falls back to the qid and marks a memberless quota"
   skip_if_not_installed("officer"); skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   th <- lss_render_theme(); th$chrome <- lss_chrome_strings("en")
   qm <- lss$quota_members
   # Keep only quota 52's members so quota 53 becomes memberless -> its
@@ -129,7 +137,7 @@ test_that("lss_render_quotas handles missing answer and quota language settings"
   skip_if_not_installed("officer"); skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   th <- lss_render_theme(); th$chrome <- lss_chrome_strings("en")
   # answer_l10ns NULL -> ans_label() early-returns NA (line 86, reached because
   # the demo quotas carry members). quota_languagesettings NULL -> qls_field()
@@ -147,7 +155,7 @@ test_that("lss_render_quotas uses a localized quota name for a displayed languag
   skip_if_not_installed("officer"); skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   th <- lss_render_theme(); th$chrome <- lss_chrome_strings("en")
   qls <- lss$quota_languagesettings
   # Give the English rows a non-empty name so the name-resolution loop takes
@@ -163,7 +171,7 @@ test_that("lss_render_quotas uses a localized quota name for a displayed languag
 test_that("lss_consent_present is FALSE when the policy notice is turned off", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   # showsurveypolicynotice == "0" -> the notice is explicitly off, so the
   # function returns FALSE at the policy-off guard (line 234).
   lss$surveys$showsurveypolicynotice <- "0"
@@ -174,7 +182,7 @@ test_that("lss_render_consent handles an absent notice column and an empty label
   skip_if_not_installed("officer"); skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   th <- lss_render_theme(); th$chrome <- lss_chrome_strings("en")
   ls <- lss$survey_language_settings
   # Drop the notice column so getf("surveyls_policy_notice", ...) takes its

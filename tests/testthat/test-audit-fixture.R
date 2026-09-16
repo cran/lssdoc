@@ -7,7 +7,7 @@
 test_that("audit_demo.lss triggers every audit detector", {
   path <- system.file("extdata", "audit_demo.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  au <- audit_lss(read_lss(path))
+  au <- audit_lss(lss_cached(path))
   checks <- unique(au$findings$check)
   expected <- c(
     "missing_translation",
@@ -37,7 +37,7 @@ test_that("a dual-scale array does not raise a false array-scale warning", {
   # as "answer scale 1 has no subquestions".
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  au <- audit_lss(read_lss(path))
+  au <- audit_lss(lss_cached(path))
   expect_false("array_scale_missing_subquestions" %in% au$findings$check)
 })
 

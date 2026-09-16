@@ -29,7 +29,7 @@ test_that("lss_normalize_authors rejects a character vector containing NA", {
 test_that("lss_header_titles yields '' for a language absent from the settings", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   out <- lssdoc:::lss_header_titles(lss, c("en", "zz"))
   expect_identical(unname(out[2]), "")
 })
@@ -56,7 +56,7 @@ test_that("lss_localized (no index) resolves a present row", {
 test_that("whitespace audit ignores an empty code without error", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   lss$answers$code[1] <- ""            # empty code -> flag() early-returns
   expect_s3_class(audit_lss(lss), "lss_audit")
 })
@@ -68,7 +68,7 @@ test_that("a multiple-choice question with a real exclude_all_others renders its
   skip_if_not_installed("officer"); skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   mc <- lss$questions$qid[lss$questions$title == "supportsources"][1]
   sq1 <- lss$subquestions$title[lss$subquestions$parent_qid == mc][1]
   qa <- lss$question_attributes
@@ -92,7 +92,7 @@ test_that("the cover renders optional survey metadata and privacy settings", {
   skip_if_not_installed("officer"); skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   # Inject an alias (language settings) and an 'active' flag (surveys).
   lss$survey_language_settings$surveyls_alias <- "demo-alias"
   lss$surveys$active <- "Y"
@@ -112,7 +112,7 @@ test_that("a quota with a localized name and message renders its rows", {
   skip_if_not_installed("officer"); skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   qls <- lss$quota_languagesettings
   skip_if(is.null(qls) || nrow(qls) == 0L, "no quota language settings")
   qls$quotals_name[1] <- "Student cap"

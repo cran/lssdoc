@@ -5,7 +5,7 @@ test_that("render_audit rejects bad inputs", {
   )
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   expect_error(render_audit(lss, 123), class = "lssdoc_bad_output")
 })
 
@@ -21,7 +21,7 @@ test_that("render_audit writes a focused audit document", {
   # Pin English chrome so the assertions can pattern-match the
   # canonical English headings; the default chrome_lang follows the
   # survey's primary content language and would translate the labels.
-  res <- render_audit(read_lss(path), out, chrome_lang = "en")
+  res <- render_audit(lss_cached(path), out, chrome_lang = "en")
   expect_identical(res, out)
   expect_true(file.exists(out))
 
@@ -54,7 +54,7 @@ test_that("render_audit on a clean survey says 'no anomalies'", {
   # The demo survey carries a single informational note (an equation
   # question with no display text). Give that question text so the audit
   # comes back perfectly clean and the "no anomalies" branch renders.
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   eq <- lss$questions$qid[lss$questions$type == "*"]
   is_eq <- lss$question_l10ns$qid %in% eq & !nzchar(lss$question_l10ns$question)
   lss$question_l10ns$question[is_eq] <- "Computed value"

@@ -18,8 +18,9 @@ lss_spec(
 \item{title}{Character. Survey title shown to respondents.}
 
 \item{groups}{List of groups. Each group is a list with \code{title}
-(character) and \code{questions} (list of question specifications, see
-Details).}
+(character), optionally \code{description} (character, a localizable
+introduction shown above the group), and \code{questions} (list of
+question specifications, see Details).}
 
 \item{languages}{Character vector of language codes, the primary
 language first (e.g. \code{c("fr", "en")}). Defaults to \code{"fr"}. See the
@@ -36,10 +37,15 @@ string starting with \code{<} used verbatim as HTML. Optional.}
 string starting with \code{<} used verbatim as HTML. Optional.}
 
 \item{quotas}{List of end-of-survey quotas. Each element is a list with
-\code{question} (code of a single-choice question), \code{code} (the answer
-code that triggers the quota), \code{message} (text shown to the
-respondent) and optionally \code{name}. A quota emitted by \code{\link[=write_lss]{write_lss()}}
-has limit zero and terminates the survey -- the LimeSurvey mechanism
+\code{question} (code of a question holding a single coded answer:
+\code{"single"}, \code{"dropdown"}, \code{"singlecomment"}, \code{"yesno"}, \code{"gender"} or
+\code{"fivepoint"}), \code{code} (the answer
+code that triggers the quota -- a declared option code, or one of the
+kind's implicit codes for the fixed scales: \code{Y}/\code{N}, \code{M}/\code{F}, \code{1}-\code{5}),
+\code{message} (text shown to the
+respondent) and optionally \code{name} and \code{limit} (a whole number at or
+above zero; omitted, it stays the historical zero). A quota emitted
+by \code{\link[=write_lss]{write_lss()}} terminates the survey -- the LimeSurvey mechanism
 for "if the person declines, end here".}
 }
 \value{
@@ -72,17 +78,26 @@ the scale is implicit). Item batteries: \code{"multitext"},
 \code{"text"}, \code{"shorttext"}, \code{"hugetext"}, \code{"numeric"}, \code{"date"},
 \code{"yesno"} (implicit Y/N), \code{"gender"} (implicit M/F), \code{"fivepoint"}
 (implicit 1-5). Plus \code{"display"} (text shown without input). Every
-kind maps to a LimeSurvey type attested by real exports; types that
-would require an unverified mechanism (dual-scale arrays of texts or
-numbers, equations, file upload) are deliberately not supported yet.
+kind maps to a LimeSurvey type attested by real exports; eight
+further LimeSurvey types are deferred, each with its own reason, in
+\code{lss_kinds_deferred} in the sources.
 \item \code{text} -- the question wording. \code{mandatory} -- logical, default
 \code{FALSE}. \code{help} -- optional help text shown under the wording.
-\item \code{options} -- for \code{single}, \code{multiple} and \code{ranking}: list of options,
-each a list with \code{text} and optionally \code{code}, \code{other = TRUE}
-(native LimeSurvey "other" with a free-text field; \code{single} and
-\code{multiple} only) and \code{exclusive = TRUE} (\code{multiple} only; unchecks
-every other box). Options without a \code{code} are numbered \verb{1..n} in
-order, skipping the \code{other} option, which LimeSurvey codes natively.
+\item \code{options} -- for every kind that takes an option list (\code{single},
+\code{dropdown}, \code{singlecomment}, \code{multiple}, \code{ranking}, \code{multitext},
+\code{multinumeric}): list of options, each a list with \code{text} and
+optionally \code{code}, \code{other = TRUE} (native LimeSurvey "other" with a
+free-text field; \code{single}, \code{dropdown} and \code{multiple} only) and
+\code{exclusive = TRUE} (\code{multiple} only; unchecks every other box).
+Options without a \code{code} are numbered \verb{1..n} in order, skipping the
+\code{other} option, which LimeSurvey codes natively. An explicit code is
+letters and digits, and its length follows the table LimeSurvey stores
+the list in: \strong{5 characters} for a list emitted as answers (\code{single},
+\code{dropdown}, \code{singlecomment}, \code{ranking} options, and \code{array} columns --
+\code{answers.code} is a \code{varchar(5)}), \strong{20 characters} for a list emitted
+as subquestions (\code{multiple}, \code{multitext}, \code{multinumeric} options, and
+\code{array} and implicit-scale array rows -- \code{questions.title} is a
+\code{varchar(20)}, the same column as a question code).
 \item \code{rows} / \code{columns} -- for \code{array}: the subquestions and the answer
 scale, same shape as \code{options}.
 \item \code{relevance} -- display condition in a minimal syntax:
@@ -98,14 +113,19 @@ together with \code{other_position_code}, the code of the option AFTER
 which "other" appears. In practice "other" usually belongs before
 the "none of the above"-type exclusive options, which the default
 position puts it after.
-\item \code{attributes} -- optional named list of extra global question
-attributes passed through verbatim (e.g. \code{display_columns}).
+\item \code{attributes} -- optional named list of extra question attributes
+passed through verbatim (e.g. \code{display_columns}). A name LimeSurvey
+stores per language (\code{prefix}, \code{suffix}, \code{choice_title},
+\code{printable_help}, ...) is emitted once per declared language by
+\code{\link[=write_lss]{write_lss()}}, and may be given either as one string for every
+language or keyed by language code.
 }
 }
 \section{Languages}{
 
 \code{languages} declares the survey languages, the primary one first;
-\code{languages[1]} is the language \code{\link[=write_lss]{write_lss()}} emits. Every localizable
+\code{languages[1]} is the base language \code{\link[=write_lss]{write_lss()}} emits, and every other
+declared language is written alongside it. Every localizable
 text -- survey title, welcome and end texts, group titles, question
 texts and help, option, row and column labels, the "other" label, quota
 names and messages -- accepts either a plain string (read as the
@@ -127,10 +147,10 @@ The spec keeps one canonical form (a named list over the declared
 languages) and is strict: as soon as several languages are declared,
 every text must supply every one of them. A missing translation is
 precisely what \code{\link[=audit_lss]{audit_lss()}} flags when reading a \code{.lss}, so the spec
-refuses to author one. In this version \code{\link[=write_lss]{write_lss()}} emits the primary
-language only, and errors with class \code{lssdoc_unsupported_multilang} on
-a spec that declares more than one; multi-language emission is planned
-for 0.3.0.
+refuses to author one. \code{\link[=write_lss]{write_lss()}} writes every declared language:
+\code{languages[1]} becomes the survey's base language and the others its
+additional languages, each localized section carrying one row per
+language.
 }
 
 \examples{

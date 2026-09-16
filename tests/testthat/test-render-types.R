@@ -11,7 +11,7 @@ test_that("demo_survey renders both templates across its question types", {
   skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   for (tmpl in c("cards", "table")) {
     out <- tempfile(fileext = ".docx")
@@ -41,7 +41,7 @@ test_that("predefined-scale and structural types document their Value", {
   skip_if_not(file.exists(path))
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
-  render_questionnaire(read_lss(path), out, chrome_lang = "en")
+  render_questionnaire(lss_cached(path), out, chrome_lang = "en")
   txt <- paste(
     officer::docx_summary(officer::read_docx(out))$text, collapse = " | "
   )
@@ -71,7 +71,7 @@ test_that("a non-default answer / option order is noted, normal is silent", {
   skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   # demo_survey carries answer_order = alphabetical / random /
   # random_alphabetical (the last reported as random) and a multiple
   # choice with subquestion_order = random, so both notes must surface in

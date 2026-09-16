@@ -36,6 +36,11 @@ identifiers and settings. \code{read_lss()} reads every section into a tidy
 data frame without mutating any user-facing identifier or text. A
 field that is present but empty (e.g. \verb{<help/>}) is read as \code{""}; a
 field that is absent from a row is read as \code{NA}.
+
+Failure is graceful by construction: a malformed, truncated, or
+non-UTF-8 file is refused in R with a classed \code{lssdoc_invalid_xml}
+error before or instead of any libxml2 diagnostic, and the parser is
+never allowed to fetch an external DTD or entity over the network.
 }
 \examples{
 # A synthetic four-language demo survey ships with the package.

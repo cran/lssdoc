@@ -4,6 +4,14 @@
 # LimeSurvey changes its `.lss` schema, and record the bump in NEWS.md.
 LSS_DBVERSION <- "700"
 
+# Version of the Word authoring form contract. `write_form_docx()` stores it
+# as the custom document property `lssdoc-template-version` and the reader
+# requires it: a document carrying another version is refused rather than
+# parsed against the wrong row labels. Bump this constant here -- and only
+# here -- whenever a row label, a reserved word, a value vocabulary or the
+# block layout changes incompatibly, and record the bump in NEWS.md.
+LSS_FORM_VERSION <- 1L
+
 # Default values for the `surveys` and `surveys_languagesettings` sections
 # of an emitted `.lss` file.
 #

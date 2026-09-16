@@ -25,7 +25,7 @@ lss_render_text <- function(lss, ..., template = "cards") {
 test_that("the cover subtitle is the single localized noun in English", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  txt <- lss_render_text(read_lss(path), chrome_lang = "en")
+  txt <- lss_render_text(lss_cached(path), chrome_lang = "en")
   expect_true(grepl("\\bQuestionnaire\\b", txt))
   # The previous long subtitle must NOT be there.
   expect_false(grepl("LimeSurvey questionnaire review", txt))
@@ -34,7 +34,7 @@ test_that("the cover subtitle is the single localized noun in English", {
 test_that("the cover subtitle localizes to 'Fragebogen' in German chrome", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  txt <- lss_render_text(read_lss(path), chrome_lang = "de")
+  txt <- lss_render_text(lss_cached(path), chrome_lang = "de")
   expect_true(grepl("Fragebogen", txt))
 })
 
@@ -43,14 +43,14 @@ test_that("the cover subtitle localizes to 'Fragebogen' in German chrome", {
 test_that("cards template uses the full 'Mandatory' header in English", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  txt <- lss_render_text(read_lss(path), template = "cards", chrome_lang = "en")
+  txt <- lss_render_text(lss_cached(path), template = "cards", chrome_lang = "en")
   expect_true(grepl("Mandatory", txt))
 })
 
 test_that("table template uses the abbreviated 'Mand.' header in English", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  txt <- lss_render_text(read_lss(path), template = "table", chrome_lang = "en")
+  txt <- lss_render_text(lss_cached(path), template = "table", chrome_lang = "en")
   expect_true(grepl("Mand\\.", txt))
 })
 
@@ -59,7 +59,7 @@ test_that("table template uses the abbreviated 'Mand.' header in English", {
 test_that("show_raw_filter = FALSE (default) does not surface .NAOK in Filter cells", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  txt <- lss_render_text(read_lss(path), chrome_lang = "en")
+  txt <- lss_render_text(lss_cached(path), chrome_lang = "en")
   # The humanized form is the editorial default; the LimeSurvey
   # `.NAOK` token only appears when the user opts into the raw
   # expression. Cards header text doesn't naturally carry `.NAOK`,
@@ -70,7 +70,7 @@ test_that("show_raw_filter = FALSE (default) does not surface .NAOK in Filter ce
 test_that("show_raw_filter = TRUE surfaces the raw LimeSurvey expression", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   # Find any question with a non-trivial relevance so the raw form
   # actually has content to show.
   has_rel <- !is.na(lss$questions$relevance) &
@@ -89,7 +89,7 @@ test_that("show_raw_filter = TRUE surfaces the raw LimeSurvey expression", {
 test_that("chrome_lang = 'fr' surfaces French labels and not their EN counterparts", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  txt <- lss_render_text(read_lss(path), chrome_lang = "fr")
+  txt <- lss_render_text(lss_cached(path), chrome_lang = "fr")
   expect_true(grepl("Filtre", txt))
   expect_true(grepl("Obligatoire", txt))
   # The EN-only label must NOT appear when chrome_lang is fr.
@@ -101,7 +101,7 @@ test_that("chrome_lang = 'fr' surfaces French labels and not their EN counterpar
 test_that("the table of contents lists the document sections, not only groups", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  txt <- lss_render_text(read_lss(path), chrome_lang = "en")
+  txt <- lss_render_text(lss_cached(path), chrome_lang = "en")
   # The static TOC names the major sections (audit, consent,
   # questionnaire, quotas, variable index), each anchored to a heading.
   for (lbl in c("Table of contents", "Audit findings",
@@ -117,7 +117,7 @@ test_that("show_audit = TRUE places the audit findings heading near the top", {
   path <- system.file("extdata", "demo_survey.lss",
                       package = "lssdoc")
   skip_if_not(file.exists(path))
-  txt <- lss_render_text(read_lss(path), chrome_lang = "en", show_audit = TRUE)
+  txt <- lss_render_text(lss_cached(path), chrome_lang = "en", show_audit = TRUE)
   expect_true(grepl("Audit findings", txt))
 })
 
@@ -126,7 +126,7 @@ test_that("show_audit = TRUE places the audit findings heading near the top", {
 test_that("requested languages each appear as a column label in cards", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  txt <- lss_render_text(read_lss(path),
+  txt <- lss_render_text(lss_cached(path),
                          languages = c("fr", "de"),
                          template = "cards", chrome_lang = "en")
   expect_true(grepl("Fran", txt))   # Francais (the localized name)
@@ -138,7 +138,7 @@ test_that("requested languages each appear as a column label in cards", {
 test_that("every question code appears in the variable index", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   txt <- lss_render_text(lss, chrome_lang = "en", show_index = TRUE)
   # Pick a few codes to spot-check (every question appearing would
   # be a stronger assertion but it would couple the test to the
@@ -155,7 +155,7 @@ test_that("every question code appears in the variable index", {
 test_that("the table template renders multiple choice as a parent row plus full-name option rows", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   skip_if(!("supportsources" %in% lss$questions$title),
           "fixture changed; MC question absent")
   txt <- lss_render_text(lss, chrome_lang = "en",
@@ -183,7 +183,7 @@ test_that("the table template renders multiple choice as a parent row plus full-
 test_that("a multiple-choice question renders as a single grouped card", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   # supportsources is a type-M question with 4 options coded 1..4.
   skip_if(!("supportsources" %in% lss$questions$title),
           "fixture changed; MC question absent")
@@ -209,7 +209,7 @@ test_that("a multiple-choice question renders as a single grouped card", {
 test_that("the multiple-choice stem appears once, not once per option", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   skip_if(!("supportsources" %in% lss$questions$title),
           "fixture changed; MC question absent")
 

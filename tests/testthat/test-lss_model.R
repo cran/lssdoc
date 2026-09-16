@@ -5,7 +5,7 @@ test_that("lss_model rejects non-lss input", {
 test_that("lss_model validates requested languages", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   expect_error(lss_model(lss, languages = "it"), class = "lssdoc_unknown_language")
   expect_identical(lss_model(lss, languages = "fr")$languages, "fr")
 })
@@ -13,7 +13,7 @@ test_that("lss_model validates requested languages", {
 test_that("lss_model assembles groups and questions in order", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  m <- lss_model(read_lss(path))
+  m <- lss_model(lss_cached(path))
 
   expect_s3_class(m, "lss_model")
   expect_identical(m$languages, c("en", "de", "es", "fr"))
@@ -28,7 +28,7 @@ test_that("lss_model assembles groups and questions in order", {
 test_that("list questions carry per-language answer labels", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  m <- lss_model(read_lss(path))
+  m <- lss_model(lss_cached(path))
   all_q <- unlist(lapply(m$groups, function(g) g$questions), recursive = FALSE)
 
   q <- Filter(function(x) x$type == "L", all_q)[[1]]
@@ -44,7 +44,7 @@ test_that("list questions carry per-language answer labels", {
 test_that("array questions carry subquestions and a shared answer scale", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  m <- lss_model(read_lss(path))
+  m <- lss_model(lss_cached(path))
   all_q <- unlist(lapply(m$groups, function(g) g$questions), recursive = FALSE)
 
   q <- Filter(function(x) x$type == "F", all_q)[[1]]
@@ -56,7 +56,7 @@ test_that("array questions carry subquestions and a shared answer scale", {
 test_that("multiple-choice questions use subquestions, not answers", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  m <- lss_model(read_lss(path))
+  m <- lss_model(lss_cached(path))
   all_q <- unlist(lapply(m$groups, function(g) g$questions), recursive = FALSE)
 
   q <- Filter(function(x) x$type == "M", all_q)[[1]]
@@ -67,7 +67,7 @@ test_that("multiple-choice questions use subquestions, not answers", {
 test_that("subquestion attributes are exposed on the model subq objects", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   # The bundled fixtures do not use per-subquestion attributes, so we
   # inject a synthetic one to confirm the propagation path works.
   sq_row <- lss$subquestions[1, ]
@@ -99,7 +99,7 @@ test_that("a missing translation surfaces as NA, not a dropped entry", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
   # Request only the base language; every question still has an fr entry.
-  m <- lss_model(read_lss(path), languages = "fr")
+  m <- lss_model(lss_cached(path), languages = "fr")
   all_q <- unlist(lapply(m$groups, function(g) g$questions), recursive = FALSE)
   expect_true(all(vapply(all_q, function(q) "fr" %in% names(q$texts), logical(1))))
 })

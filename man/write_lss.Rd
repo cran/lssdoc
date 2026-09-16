@@ -16,11 +16,16 @@ structure (it is then validated through \code{lss_spec()} first).}
 a fresh id on import when this one is taken, so the value rarely
 matters.}
 
-\item{settings}{Named list of \code{surveys}-table fields overriding the
-built-in defaults (e.g. \code{list(anonymized = "Y", showprogress = "Y")}).
-The defaults ship with the package and come from a real LimeSurvey 6
-export, scrubbed -- see \code{lss_default_surveys_fields} in the sources
-for the rationale.}
+\item{settings}{Named list of survey fields overriding the built-in
+defaults (e.g. \code{list(anonymized = "Y", showprogress = "Y")}). A name
+belonging to the \code{surveys} table takes a single string; a name
+belonging to the per-language \code{surveys_languagesettings} table
+(\code{surveyls_dateformat}, \code{surveyls_numberformat},
+\code{surveyls_description}, the e-mail templates, ...) takes either a
+single string applied to every language or a list or vector keyed by
+language code -- see the \emph{Languages} section. The defaults ship with
+the package and come from a real LimeSurvey 6 export, scrubbed -- see
+\code{lss_default_surveys_fields} in the sources for the rationale.}
 }
 \value{
 Invisibly, the path to the written file.
@@ -40,7 +45,7 @@ produced from the very file LimeSurvey receives.
 Mapping choices, each validated against real LimeSurvey 6 imports:
 \itemize{
 \item Each kind maps to a LimeSurvey type and theme attested by a corpus
-of real exports (see \code{lss_kind_map} in the sources). Options of
+of real exports (see \code{lss_kinds} in the sources). Options of
 single-choice lists, rankings and array columns are emitted as
 \code{answers}; options of multiple-choice questions, item batteries and
 array rows as \code{subquestions}; scalar kinds and implicit scales
@@ -55,20 +60,54 @@ option is displayed; \code{exclude_all_others} accepts several codes
 separated by \verb{;}.
 \item Relevance equations are translated from the minimal syntax of
 \code{\link[=lss_spec]{lss_spec()}} into ExpressionScript (\code{code.NAOK == "1"}).
-\item Quotas are emitted with limit zero and the terminate action.
+\item Quotas are emitted with the terminate action and the quota's \code{limit}
+(zero unless the spec gives one).
+\item A group's optional \code{description} is emitted into
+\code{group_l10ns.description} (empty when the spec gives none).
 \item A mandatory or capped ranking also receives \code{min_answers = 1},
 overridable through the question's \code{attributes}.
 }
 }
 \section{Languages}{
 
-The spec model is multilingual (\code{\link[=lss_spec]{lss_spec()}} accepts \code{languages} and
-per-language texts); the emitter is not yet. This version writes the
-primary language -- \code{languages[1]} -- only, exactly as it did when a
-spec could hold a single language. A spec declaring more than one
-language raises a classed error (\code{lssdoc_unsupported_multilang}) rather
-than silently dropping the translations; multi-language emission is
-planned for 0.3.0.
+Every language the spec declares is written. The \code{surveys} row carries
+the base language -- \code{languages[1]} -- as \code{language} and the others,
+space-separated, as \code{additional_languages}. Every localized section
+(\code{surveys_languagesettings}, \code{group_l10ns}, \code{question_l10ns} for
+questions and subquestions alike, \code{answer_l10ns},
+\code{quota_languagesettings}) receives one row per language, grouped by
+entity as a real LimeSurvey export groups them. \code{\link[=lss_spec]{lss_spec()}} already
+requires every declared language for every text, so no translation can
+go missing at emission.
+
+The \verb{<languages>} element lists the additional languages first and the
+base language last, the order LimeSurvey itself writes. It is only a
+membership set: read the base language from \code{read_lss()$base_language},
+never from \code{read_lss()$languages[1]}.
+
+Localized question attributes -- \code{other_replace_text}, \code{prefix},
+\code{suffix}, \code{choice_title}, \code{rank_title}, \code{printable_help}, ... -- are
+emitted once per language, each row carrying its language code; without
+it LimeSurvey silently ignores the attribute and shows its own default
+wording. An attribute passed through \code{question$attributes} under one of
+those names is treated the same way: a plain string is repeated in every
+language, a value keyed by language code is resolved language by
+language (\code{attributes = list(prefix = "CHF")} or
+\code{list(choice_title = c(fr = "Choix", en = "Choice"))}). Every other
+attribute stays language-less, as LimeSurvey stores it.
+
+Per-language survey settings work the same way: \code{settings} accepts a
+single value repeated in every \code{surveys_languagesettings} row, or a list
+keyed by language code for the fields LimeSurvey genuinely varies --
+\code{list(surveyls_dateformat = c(fr = "5", en = "2"))} gives the French
+respondent a \code{dd.mm.yyyy} date picker and the English one \code{mm/dd/yyyy}.
+A declared language missing from such a value is an error, not a silent
+fallback.
+
+A quota is localized through \code{quotals_name} and \code{quotals_message}, one
+row per language. The administration-side label \code{quota.name} has a
+single column in LimeSurvey and therefore keeps the primary-language
+wording.
 }
 
 \examples{

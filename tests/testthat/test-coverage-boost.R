@@ -64,7 +64,7 @@ test_that("print.lss_audit lists findings and respects the n cap", {
   path <- system.file("extdata", "demo_survey.lss",
                       package = "lssdoc")
   skip_if_not(file.exists(path))
-  au <- audit_lss(read_lss(path))
+  au <- audit_lss(lss_cached(path))
   skip_if(au$n_findings == 0L, "fixture has no findings to print")
   out <- cli::cli_fmt(print(au, n = 1L))
   expect_true(any(grepl("finding", out)))
@@ -97,7 +97,7 @@ test_that("a render with authors, description, admin/privacy and item headings s
 
   expect_no_error(
     render_questionnaire(
-      read_lss(path), out, chrome_lang = "en",
+      lss_cached(path), out, chrome_lang = "en",
       logo = logo,
       authors = authors,
       description = "Methods note: see https://example.org/doi for details.",

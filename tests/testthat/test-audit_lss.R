@@ -5,7 +5,7 @@ test_that("audit_lss rejects objects that are not lss", {
 test_that("the demo survey has no error- or warning-level findings", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  a <- audit_lss(read_lss(path))
+  a <- audit_lss(lss_cached(path))
   expect_s3_class(a, "lss_audit")
   # The demo survey is editorially clean: its only finding is an
   # informational note (an equation question carries no display text).
@@ -16,7 +16,7 @@ test_that("the demo survey has no error- or warning-level findings", {
 test_that("an empty (non-equation) question text is flagged as an error", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   # Blank the first non-equation question's text in every language; a
   # real question (unlike an equation) must carry text, so this is an
@@ -37,7 +37,7 @@ test_that("an empty (non-equation) question text is flagged as an error", {
 test_that("a missing translation in one language is detected", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   # Blank out the fr text of the first question that has one.
   l10n <- lss$question_l10ns
@@ -53,7 +53,7 @@ test_that("a missing translation in one language is detected", {
 test_that("duplicate question codes are flagged as errors", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   # Force a duplicate variable code.
   lss$questions$title[2] <- lss$questions$title[1]
@@ -67,7 +67,7 @@ test_that("duplicate question codes are flagged as errors", {
 test_that("orphan subquestions are detected", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   lss$subquestions$parent_qid[1] <- "999999999"
 
   a <- audit_lss(lss)
@@ -77,7 +77,7 @@ test_that("orphan subquestions are detected", {
 test_that("an empty equation text is a note, not an error", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   # Turn the first question into an empty equation in every language.
   lss$questions$type[1] <- "*"
@@ -97,7 +97,7 @@ test_that("an empty equation text is a note, not an error", {
 test_that("a filter referencing a later variable is flagged as an error", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   # Sort questions by display order so we can pick the first and a
   # later one deterministically.
@@ -120,7 +120,7 @@ test_that("a filter referencing a later variable is flagged as an error", {
 test_that("a backward filter reference does not trigger forward_filter_reference", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   q_ord <- order(suppressWarnings(as.integer(lss$questions$question_order)))
   earlier_code <- lss$questions$title[q_ord[1]]
@@ -139,7 +139,7 @@ test_that("a backward filter reference does not trigger forward_filter_reference
 test_that("an array whose subquestion scales do not match the answer scales is flagged", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   # Find any question that has BOTH answers and subquestions.
   qid <- NA
@@ -165,7 +165,7 @@ test_that("an array whose subquestion scales do not match the answer scales is f
 test_that("whitespace in a question code is flagged as a warning", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   lss$questions$title[1] <- paste0(lss$questions$title[1], " ")
 
@@ -178,7 +178,7 @@ test_that("whitespace in a question code is flagged as a warning", {
 test_that("whitespace inside a code is also caught", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   # Interior space, not just leading/trailing.
   lss$questions$title[1] <- "q 1"
@@ -192,7 +192,7 @@ test_that("print.lss_audit paginates and respects n = Inf", {
   path <- system.file("extdata", "demo_survey.lss",
                       package = "lssdoc")
   skip_if_not(file.exists(path))
-  a <- audit_lss(read_lss(path))
+  a <- audit_lss(lss_cached(path))
   skip_if(a$n_findings < 2L, "Need >=2 findings to test pagination")
 
   # Default cap (20) -- output must mention the remaining count when
@@ -214,7 +214,7 @@ test_that("print.lss_audit paginates and respects n = Inf", {
 test_that("as.data.frame keeps a stable column set regardless of findings", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  a <- audit_lss(read_lss(path))
+  a <- audit_lss(lss_cached(path))
   expect_s3_class(as.data.frame(a), "data.frame")
   # Identity in structure: same columns whether empty or populated.
   expect_setequal(

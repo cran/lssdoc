@@ -166,7 +166,7 @@ test_that("lss_render_section_props resolves auto to portrait", {
 test_that("lss_header_titles reads titles from the survey language settings", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   out <- lssdoc:::lss_header_titles(lss, c("en", "fr"))
   expect_length(out, 2L)
 })
@@ -176,7 +176,7 @@ test_that("lss_header_titles reads titles from the survey language settings", {
 test_that("a filter that references an unknown variable is not a forward ref", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   q_ord <- order(suppressWarnings(as.integer(lss$questions$question_order)))
   lss$questions$relevance[q_ord[1]] <- "nonexistentvar.NAOK == 1"
   a <- audit_lss(lss)
@@ -210,7 +210,7 @@ test_that("lss_table_question_paragraph composes subq with a facet and help", {
 test_that("lss_consent_present is FALSE without policy settings", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   expect_type(lss_consent_present(lss, c("en", "fr")), "logical")
   lss$survey_language_settings <- NULL
   expect_false(lss_consent_present(lss, c("en", "fr")))
@@ -233,7 +233,7 @@ test_that("a render with every option enabled exercises the optional paths", {
   skip_if_not_installed("officer"); skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   # Inject an "Other:" custom prompt, a group description, and welcome /
   # end text so the corresponding render branches are reached.
   qa <- lss$question_attributes
@@ -258,7 +258,7 @@ test_that("rendering the audit-demo survey surfaces inline audit markers", {
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
   for (tmpl in c("cards", "table")) {
-    render_questionnaire(read_lss(path), out, template = tmpl,
+    render_questionnaire(lss_cached(path), out, template = tmpl,
                          chrome_lang = "en", show_audit = TRUE, show_help = TRUE)
     expect_true(file.exists(out))
   }

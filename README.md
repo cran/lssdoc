@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file. -->
 
-# lssdoc: Word and PDF questionnaire documents from LimeSurvey `.lss` files <img src="man/figures/logo.png" align="right" height="139" alt="lssdoc logo" />
+# lssdoc: LimeSurvey questionnaires to and from Word <img src="man/figures/logo.png" align="right" height="139" alt="lssdoc logo" />
 
 <!-- badges: start -->
 
@@ -29,6 +29,11 @@ committees, translators and reviewers. It renders the questionnaire
 content side by side in up to four languages, runs an automated
 integrity audit, and produces a layout that reads as a published
 instrument – not a developer dump.
+
+It also works the other way around. Write a questionnaire in a Word
+form, or describe it in R, and lssdoc writes the `.lss` file you import
+into LimeSurvey – so the people who design a questionnaire never have to
+build it by hand in a web interface.
 
 Two output templates:
 
@@ -118,7 +123,7 @@ The package depends on **officer** and **flextable** (declared as
 
 ## Quick tour
 
-The public API is four functions:
+Reading, auditing and rendering:
 
 | Function | Role |
 |----|----|
@@ -126,6 +131,18 @@ The public API is four functions:
 | `audit_lss(input)` | Inspect a survey for anomalies; returns an `lss_audit` object with a `print()` method. |
 | `render_questionnaire(input, output, ...)` | Render the full questionnaire to a Word or PDF document. |
 | `render_audit(input, output, ...)` | Render the audit findings alone to a Word or PDF document. |
+
+Writing a questionnaire (experimental):
+
+| Function | Role |
+|----|----|
+| `lss_template_docx(path, lang)` | Write a blank Word form to fill in. |
+| `check_form_docx(path)` | Report every problem in a filled form, in one pass. |
+| `read_form_docx(path)` | Read a filled form back into a specification. |
+| `lss_spec(title, groups, ...)` | Describe a questionnaire directly in R instead. |
+| `as_lss_spec(lss)` | Turn a survey read with `read_lss()` into a specification. |
+| `write_form_docx(x, path, lang)` | Render a specification, or an existing survey, as the form. |
+| `write_lss(spec, file)` | Write a specification as an importable `.lss` file. |
 
 `audit_lss()`, `render_questionnaire()` and `render_audit()` accept
 `input` as either a path to a `.lss` file or a pre-parsed `lss` object.
@@ -261,6 +278,37 @@ render_questionnaire("survey.lss", "review.pdf", template = "table")
 render_audit("survey.lss", "qa.pdf")
 ```
 
+## Write a questionnaire in Word
+
+Many questionnaires are written by people who live in Word, not in R.
+Hand them a blank form, get it back filled in, and turn it into a
+LimeSurvey file.
+
+``` r
+# 1. a blank form, in the language of your choice
+lss_template_docx("questionnaire.docx", lang = "fr")
+
+# 2. the author fills it in, in Word
+
+# 3. check it, then read it
+check_form_docx("questionnaire.docx")   # every problem at once
+spec <- read_form_docx("questionnaire.docx")
+
+# 4. write the file to import into LimeSurvey
+write_lss(spec, "questionnaire.lss")
+```
+
+The form is one small table per survey, group, question and quota,
+carrying the fields each question type needs with its defaults already
+filled in. Blank forms can also be [downloaded from the
+website](https://amaltawfik.github.io/lssdoc/), so an author who does
+not use R never has to install anything.
+
+An existing survey can enter the same loop: `write_form_docx()` renders
+it as the form, so a questionnaire can be exported from LimeSurvey,
+edited in Word and re-imported. See `vignette("write-in-word")` for the
+conventions, the question types and the filter syntax.
+
 ## Templates and palette
 
 The rendered `.docx` uses an editorial petrol-blue palette tuned for
@@ -273,10 +321,10 @@ arguments accept any string to override.
 
 Run `citation("lssdoc")` for the up-to-date citation, or cite as:
 
-    Tawfik A (2026). _lssdoc: Render 'LimeSurvey' '.lss' Questionnaires as
-    Word and PDF Documents_. doi:10.32614/CRAN.package.lssdoc
+    Tawfik A (2026). _lssdoc: 'LimeSurvey' '.lss' Questionnaires to and
+    from Word Documents_. doi:10.32614/CRAN.package.lssdoc
     <https://doi.org/10.32614/CRAN.package.lssdoc>. R package version
-    0.2.0, <https://CRAN.R-project.org/package=lssdoc>.
+    0.3.0, <https://CRAN.R-project.org/package=lssdoc>.
 
 ## License
 

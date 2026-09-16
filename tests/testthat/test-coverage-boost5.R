@@ -34,7 +34,7 @@ test_that("lss_section parses fields, empty rows and missing cells", {
 test_that("render_questionnaire validates base_size bounds", {
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
   expect_error(render_questionnaire(lss, out, base_size = 99),
@@ -54,7 +54,7 @@ test_that("render_audit threads font, colors, authors and description overrides"
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
   res <- render_audit(
-    read_lss(path), out, chrome_lang = "en",
+    lss_cached(path), out, chrome_lang = "en",
     font = "Arial", font_code = "Consolas",
     colors = list(primary = "#5C9F1A", accent = "#7FA82E"),
     authors = list(list(name = "Amal Tawfik", affiliation = "HES-SO")),
@@ -74,7 +74,7 @@ test_that("the table template surfaces the raw filter line when asked", {
   skip_if_not(file.exists(path))
   out <- tempfile(fileext = ".docx")
   on.exit(unlink(out), add = TRUE)
-  render_questionnaire(read_lss(path), out, template = "table",
+  render_questionnaire(lss_cached(path), out, template = "table",
                        languages = c("fr", "de"), chrome_lang = "en",
                        show_raw_filter = TRUE)
   txt <- paste(officer::docx_summary(officer::read_docx(out))$text, collapse = " | ")

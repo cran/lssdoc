@@ -1,20 +1,22 @@
 Package: lssdoc
-Title: Render 'LimeSurvey' '.lss' Questionnaires as Word and PDF
-        Documents
-Version: 0.2.0
+Title: 'LimeSurvey' '.lss' Questionnaires to and from Word Documents
+Version: 0.3.0
 Authors@R: 
     person("Amal", "Tawfik", , "amal.tawfik@hesav.ch", role = c("aut", "cre", "cph"), comment = c(ORCID = "0009-0006-2422-1555", ROR = "04j47fz63"))
-Description: Render 'LimeSurvey' '.lss' survey exports as
-    questionnaire documents in Word ('.docx') or PDF, displaying one to
-    four languages side by side with localized chrome in English, French,
-    German, Spanish and Italian. Includes a rule-based automated audit
-    that flags missing translations, forward filter references, duplicate
-    codes, array-scale inconsistencies and orphan structural references.
-    Designed for anyone working with a 'LimeSurvey' survey: researchers,
-    methodologists, ethics committees, translators and reviewers.
-    Processing is fully
-    local: the source file is the only input and no questionnaire content
-    is uploaded to a third-party service.
+Description: Turn a 'LimeSurvey' '.lss' survey export into a
+    publication-quality questionnaire document in Word ('.docx') or PDF,
+    with up to four of the survey's own languages side by side. Every
+    label the package adds around that content -- column headers, type
+    names, the audit section -- is written in English, French, German,
+    Spanish or Italian, whatever the survey languages are. A rule-based
+    audit flags missing translations, forward filter references,
+    duplicate codes, array-scale inconsistencies and orphan structural
+    references. Questionnaires travel the other way too: describe one in
+    R, or fill in a Word form, and write a '.lss' file ready to import.
+    Meant for the people who work on questionnaires -- researchers,
+    methodologists, ethics committees, translators and reviewers -- and
+    fully local: the source file is the only input, and no questionnaire
+    content is uploaded to a third-party service.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: en-US
@@ -29,10 +31,10 @@ URL: https://amaltawfik.github.io/lssdoc/,
 BugReports: https://github.com/amaltawfik/lssdoc/issues
 Config/roxygen2/version: 8.1.0
 NeedsCompilation: no
-Packaged: 2026-09-13 20:57:25 UTC; at
+Packaged: 2026-09-16 07:00:19 UTC; at
 Author: Amal Tawfik [aut, cre, cph] (ORCID:
     <https://orcid.org/0009-0006-2422-1555>, ROR:
     <https://ror.org/04j47fz63>)
 Maintainer: Amal Tawfik <amal.tawfik@hesav.ch>
 Repository: CRAN
-Date/Publication: 2026-09-13 21:20:02 UTC
+Date/Publication: 2026-09-16 08:40:02 UTC

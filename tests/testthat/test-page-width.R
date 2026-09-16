@@ -15,7 +15,7 @@ test_that("page_format = 'auto' is template-aware (cards portrait, table landsca
   skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   orientation_of <- function(out) {
     tmp <- tempfile()
@@ -46,7 +46,7 @@ test_that("landscape cards widen every panel without overflowing", {
   skip_if_not_installed("flextable")
   path <- system.file("extdata", "demo_survey.lss", package = "lssdoc")
   skip_if_not(file.exists(path))
-  lss <- read_lss(path)
+  lss <- lss_cached(path)
 
   # Both templates must render in landscape for the full four-language
   # fixture; the tables are laid out to the 9.73 in landscape width, so no
